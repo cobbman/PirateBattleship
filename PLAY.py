@@ -22,14 +22,18 @@ def showBoard():
 
 def createBoard():
 	'''
-	Create the board using an array matrix, then display it
+	Create the board using an array matrix
 	'''
-	board = [ [ " ." for row in range(11)] for col in range(11) ] #create the board with  " ." only
+	board = [ [ "." for row in range(10)] for col in range(10) ] #create the board with  " ." only
+
+	# headers are for display purposed only and won't be included in the board matrix
+	rowHeader = "0123456789"
+	colHeader = "ABCDEFGHIJ"
 
 	# now we will create the header values (numbers 0-9) and preserve the spacing
-	board[0][0] = " "
-	for num in range(10):
-		board[0][num + 1] = " " + str(num)
+	#board[0][0] = " "
+	#for num in range(10):
+	#	board[0][num + 1] = " " + str(num)
 
 	#print it so we can test it
 	#for row in board:
@@ -43,7 +47,13 @@ createBoard()
 ###
 
 # An idea for controlling the board in the background is to use a dictionary to store the values. This might be a good idea actually, because I can use keys to reference and update the board if it's a hit or miss or "."
-boardAsDictionary = { "(A, 0)" : ".", "(A, 1)" : ".", "(A, 2)" : ".", "(A, 3)":"." } # and so forth
+boardAsDictionary = { (A, 0):".", (A, 1):".", (A, 2):".", (A, 3):"." } # and so forth
+
+def createDictBoard():
+	'''
+	going to create the board as a dictionary
+	'''
+	
 
 
 
