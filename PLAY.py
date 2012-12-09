@@ -1,4 +1,29 @@
-# Steps of how the game will work
+import setup
+import display
+
+# introduction
+print("Yarr Pirate Battleship matey!")
+name = input("What be yer name? ")
+print("Hello", name)
+
+# setup the board and boats
+board = setup.board()
+boardArray = setup.boardArray()
+boats = setup.boats(5) #takes the number of boats as an argument
+
+# display the board for the user
+displayBoard = display.showBoard(boardArray)
+
+# begin play
+boats_left = 5
+while boat_left > 0:
+        move = prompt("Make your move: ")
+
+        #check to see if it's a hit or miss and notify the user
+
+        # update and re-display the board
+
+        # Steps of how the game will work
 '''
 1. The game starts, the user sees an intro screen (hits enter)
 2. The board is created and boats positions randomly generated
@@ -35,15 +60,7 @@ def showBoard():
 
 # Next, I want to create the board as a matrix so that it can be manipulated in the game
 
-def createBoardArray():
-	'''
-	Create the board using an array matrix
-	'''
-	board = [ [ "." for row in range(10)] for col in range(10) ] #create the board with  " ." only
 
-	# headers are for display purposed only and won't be included in the board matrix
-	rowHeader = "0123456789"
-	colHeader = "ABCDEFGHIJ"
 
 	# now we will create the header values (numbers 0-9) and preserve the spacing
 	#board[0][0] = " "
@@ -61,17 +78,6 @@ def createBoardArray():
 
 # An idea for controlling the board in the background is to use a dictionary to store the values. This might be a good idea actually, because I can use keys to reference and update the board if it's a hit or miss or "."
 
-def createBoard():
-	'''
-	going to create the board as a dictionary where the keys are tuples
-	'''
-	rowHeader = "0123456789"
-	colHeader = "ABCDEFGHIJ"
-	global board = {}
-
-	for i in colHeader:
-		for j in rowHeader:
-			board[(i,j)] = "."
 
 
 
