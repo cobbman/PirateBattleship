@@ -8,7 +8,7 @@ class GameBoard:
     def __init__(self, setSize=10, setMark='.'):
         self.size = setSize
         self.mark = setMark 
-        self.grid = [ [ self.mark for row in range(self.size)] for col in range(self.size) ]
+        self.grid = [ [ self.mark for row in range(self.size) ] for col in range(self.size) ]
 
     def getSize(self):
         return self.size
@@ -38,6 +38,7 @@ class GameBoard:
             self.grid[row][col] = missMark
             
     def draw(self):
+        # STILL NEED TO PRINT THE ROW AND COL HEADERS SO THE USER KNOWS WHICH COORDINATES TO USE
         for row in self.grid:
             for col in row:
                 print('{0:1}'.format(col), end=" ")
