@@ -1,14 +1,46 @@
+from random import randint
+# Our boat will have to take boardSize as a parameter to know what it's limits are.
+# For now, I'll assume a default board of size 10x10
 class Boat:
-    """ A simple boat """
-    def __init__(self, something):
-        s.self = something
-    def setLocation(x,y,unit='.'):
-        return {(x,y):unit}
-    def direction(self):
-        return 'North'
-    def test(self):
-        return 'hello world'
-boat1 = Boat()
-boat2 = Boat(length))
-print 'Length of boat1 is ', boat1.length
-print 'Length of boat2 is ', boat2.length
+    """Create a boat object with specified length. Default length is 3. """
+    def __init__(self, boatLength=3, boardSize=10):
+        self.length = boatLength
+        self.matrixLimit = boardSize
+        self.coords = {}
+
+        # randomly choose coordinates where the boat will start from
+        x = randint(0, self.matrixLimit - 1)
+        y = randint(0, self.matrixLimit - 1)       
+
+        def setDirection(self):
+            d = randint(0,3)  # 0 = north, 1 = east, 2 = south, 3 = west
+            # check to make sure that the boat won't run off the board
+            if (d == 0 and y-(self.length-1) < 0) or (d == 1 and x+(self.length-1) > 9) or (d == 3 and y+(self.length-1) > 9) or (d == 4 and x-(self.length-1) < 0):
+                setDirection()
+            return d
+        d = setDirection()
+
+        if d == 0: # if facing north
+            for i in range(self.length):
+                self.coord[x,y] = 'o'
+                y = y - 1
+        if d == 1:
+            boat = [[x,y],[x+1,y],[x+2,y]] # if facing east
+        if d == 2:
+            boat = [[x,y],[x,y+1],[x,y+2]] # if facing south
+        if d == 3:
+            boat = [[x,y],[x-1,y],[x-2,y]] # if facing west
+
+        boats[len(boats):] = boat
+        
+    def isHit(self, x, y):
+        #returns true if coordinates given is a hit, false if miss
+    def isSunk(self):
+        #returns true if the boat is sunk (all coordinates have been hit)
+    def unitsLeft(self):
+        # returns how many units are not hit
+    def numberOfHits(self):
+        # returns how many hits the boat has taken
+
+
+

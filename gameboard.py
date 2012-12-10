@@ -49,7 +49,8 @@ class GameBoard:
         for x in range(1,11):
             print (repr(x).rjust(2), repr(x*x).rjust(3), repr(x*x*x).rjust(4))
         """
-
+"""
+# for testing purposes
 board = GameBoard(10)
 board.updateHit(3,4)
 board.updateHit(2,1)
@@ -57,7 +58,7 @@ board.updateMiss(2,0)
 board.updateMiss(2,2)
 board.updateHit(5,3)
 board.draw()
-
+"""
 """
 How the game board display will work:
 gameBoard will be an object that will be an array.
