@@ -1,2 +1,14 @@
-class Boat():
-	
+class Boat:
+    """ A simple boat """
+    def __init__(self, something):
+        s.self = something
+    def setLocation(x,y,unit='.'):
+        return {(x,y):unit}
+    def direction(self):
+        return 'North'
+    def test(self):
+        return 'hello world'
+boat1 = Boat()
+boat2 = Boat(length))
+print 'Length of boat1 is ', boat1.length
+print 'Length of boat2 is ', boat2.length
