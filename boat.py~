@@ -55,8 +55,8 @@ class Boat:
         #returns true if the boat is sunk (all coordinates have been hit)
         return not (self.notHitMark in self.coordinates.values())
     
-    def unitsLeft(self):
-        # returns how many units are not hit
+    def numberNotHit(self):
+        # returns how many coords have not been hit yet
         count = 0
         for key in self.coordinates:
             if self.coordinates[key] == self.notHitMark:
@@ -72,11 +72,11 @@ class Boat:
         return count
 
 """ FOR TESTING PURPOSES """
-boat1 = Boat(3)
-print(boat1.getCoordinates())
-boat2 = Boat(4)
-print(boat2.getCoordinates())
-boat3 = Boat(5)
-print(boat3.getCoordinates())
+#boat1 = Boat(3)
+#print(boat1.getCoordinates())
+#boat2 = Boat(4)
+#print(boat2.getCoordinates())
+#boat3 = Boat(5)
+#print(boat3.getCoordinates())
 
 

@@ -1,6 +1,6 @@
 from random import randint
 class Boat:
-    """Create a boat object with specified length. Default length is 3. """
+    """Create a boat object with specified length. Default length is 3. ASSUMES that boardSize is > boatLength"""
     
     def __init__(self, boatLength=3, boardSize=10):
         self.length = boatLength
