@@ -1,30 +1,37 @@
-import setup
-import display
+from __future__ import print_function # makes the print() function compatible with older versions of python
+import boat
+import gameboard
+import player
 
-# introduction
+########################### 
+#      introduction
+###########################
 print("Yarr Pirate Battleship matey!")
-name = input("What be yer name? ")
-print("Hello", name)
+player1 = player.Player(raw_input("What be yer name? "))
+theBoardSize = int(raw_input("How large a board? (recommend 10)"))
+numBoats = int(raw_input("How many boats? (recommend 3)"))
 
-# setup the board and boats
-board = setup.board()
-boardArray = setup.boardArray()
-boats = setup.boats(5) #takes the number of boats as an argument
+###########################
+#     create elements
+###########################
 
-# display the board for the user
-displayBoard = display.showBoard(boardArray)
+# create the board
+board = gameboard.GameBoard(theBoardSize)
 
-# begin play
-boats_left = 5
-while boat_left > 0:
-        move = prompt("Make your move: ")
+# create the boats. Boat coordinates are dictionaries with tuples as the coordinates and 'o' as the initial values (when hit, value changes to 'x')
+boatList = []
+for num in range(numBoats):
+    newBoat = boat.Boat(boardSize=theBoardSize)
+    boatList.append(newBoat.getCoordinates())
 
-        #check to see if it's a hit or miss and notify the user
+#test the boats
+print("The boat list is:")
+print(boatList)
 
-        # update and re-display the board
 
-        # Steps of how the game will work
-'''
+
+
+"""
 1. The game starts, the user sees an intro screen (hits enter)
 2. The board is created and boats positions randomly generated
 3. asks for user name
@@ -34,11 +41,10 @@ while boat_left > 0:
 7. if found, update boat and board to 'x', run the "hit" screen for the user to see
 8. if miss, update board to 'o', run the 'miss' screen
 9. ask for next input
-'''
+"""
 
 
-
-# for starters, I'm going to create a board to see what it's supposed to look like
+"""
 def showBoard():
 	''' 
 	Just displays what the board is supposed to look like
@@ -55,30 +61,4 @@ def showBoard():
 	print("I . . . . . . . . . .")
 	print("J . . . . . . . . . .")
 #showBoard()
-
-#note: "x" will be hit mark, "o" will be a miss mark and "." is default
-
-# Next, I want to create the board as a matrix so that it can be manipulated in the game
-
-
-
-	# now we will create the header values (numbers 0-9) and preserve the spacing
-	#board[0][0] = " "
-	#for num in range(10):
-	#	board[0][num + 1] = " " + str(num)
-
-	#print it so we can test it
-	#for row in board:
-	#	print(row)
-#createBoardArray()
-
-
-# Another idea for displaying the board is to exclude the row/col headers completely from the board itself and only insert them when the board is being displayed. This way I can keep the board arrays pure without worring about header values (which should not be edited).
-# Also, when displaying the board, maybe I won't keep the spaces in the array values either, and just insert those when displaying itu
-
-# An idea for controlling the board in the background is to use a dictionary to store the values. This might be a good idea actually, because I can use keys to reference and update the board if it's a hit or miss or "."
-
-
-
-
-
+"""
