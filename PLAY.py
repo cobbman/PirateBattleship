@@ -55,9 +55,13 @@ while numBoats > 0:
             if boat.isSunk() == True:
                 numBoats = numBoats - 1
             print("xxxxxxxxxxxxxxx Boat was hit! xxxxxxxxxxxxxx")
+            print("xxxxxxxxxxxxxxx Boat was hit! xxxxxxxxxxxxxx")
+            print("xxxxxxxxxxxxxxx Boat was hit! xxxxxxxxxxxxxx")
             break
     else:
         board.updateMiss(x,y)
+        print("oooooooooo Miss ooooooooooooooo")
+        print("oooooooooo Miss ooooooooooooooo")
         print("oooooooooo Miss ooooooooooooooo")
     
     #TEST
@@ -67,11 +71,11 @@ while numBoats > 0:
     for boat in boatList:
         print(boat.getCoordinates())
 
+clearScreen()
 board.draw()    
 print("Game is over. Ye are a true Pirate!") 
-
-
-
+for i in range(5):
+    print()
 
 
 """

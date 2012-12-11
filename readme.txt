@@ -16,3 +16,5 @@ To Do:
 1. Add visual ASCII when boat is hit or  miss to make it more fun
 2. validate inputs, so if user makes an invalid move it won't break
 3. add feature to create boats of different sizes
+4. *** put checks in place to make sure boats don't overlap!
+5. BUG: some of the boats have negative coordinates… need to fix
