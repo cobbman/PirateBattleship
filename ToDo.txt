@@ -1,0 +1,4 @@
+TO DO:
+- some boat coordinates still show up negative
+- if a coordinate is guessed twice, it should not just return false
+- create intro screens to add excitement
