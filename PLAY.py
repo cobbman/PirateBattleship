@@ -8,12 +8,16 @@ import player
 ###########################
 print("Yarr Pirate Battleship matey!")
 player1 = player.Player(raw_input("What be yer name? "))
-theBoardSize = int(raw_input("How large a board? (recommend 10)"))
+#theBoardSize = int(raw_input("How large a board? (recommend 10)"))
+theBoardSize = 10 # right now the board size must be 10 to keep 'coordinateReference' simple
 numBoats = int(raw_input("How many boats? (recommend 3)"))
 
 ###########################
 #     create elements
 ###########################
+
+# create a dictionary for referencing coordinates from the player to the computer
+coordinateReference = { 'A':0, 'B':1, 'C':2,'D':3, 'E':4, 'F':5, 'G':6, 'H':7, 'I':8, 'J':9 }
 
 # create the board
 board = gameboard.GameBoard(theBoardSize)
@@ -21,12 +25,48 @@ board = gameboard.GameBoard(theBoardSize)
 # create the boats. Boat coordinates are dictionaries with tuples as the coordinates and 'o' as the initial values (when hit, value changes to 'x')
 boatList = []
 for num in range(numBoats):
-    newBoat = boat.Boat(boardSize=theBoardSize)
-    boatList.append(newBoat.getCoordinates())
+    #make sure the boats don't overlap (eventually, not right now)
+    #
+    #
+    boatList.append(boat.Boat(boardSize=theBoardSize))
 
-#test the boats
-print("The boat list is:")
-print(boatList)
+###########################
+#     Play the game!
+###########################
+def clearScreen():
+    for i in range(50):
+        print()
+
+while numBoats > 0:
+    #clearScreen()
+    board.draw()
+    #TEST
+    print("The boat list is:")
+    for boat in boatList:
+        print(boat.getCoordinates())
+    move = raw_input("Arrgh, make yer move " + player1.name() + "! (example: C,4)")
+    # convert move to int format (note x and y coords are reversed cuz in Battleship the letter is the row, yadda yadda, oops)
+    y = int(coordinateReference[move[0].upper()])
+    x = int(move[2])
+
+    #TEST
+    print("x is " + str(x))
+    print("y is " + str(y))
+    print("Now checking if boat is in boatList...")
+
+    for boat in boatList:
+        if (x,y) in boat.getCoordinates():
+            print(boat.isHit(x,y))
+            board.updateHit(x,y)
+            print("Boat was hit!")
+            break
+    else:
+        board.updateMiss(x,y)
+        print("Miss")
+        
+    # check to see if any boats are sunk, and lower numBoats accordingly
+    # doing it later
+
 
 
 
