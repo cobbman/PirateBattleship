@@ -18,3 +18,4 @@ To Do:
 3. add feature to create boats of different sizes
 4. *** put checks in place to make sure boats don't overlap!
 5. BUG: some of the boats have negative coordinates… need to fix
+6. Update board draw method so it shows coordinate headers that the user can see

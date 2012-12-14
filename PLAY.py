@@ -10,7 +10,7 @@ print("Yarr Pirate Battleship matey!")
 player1 = player.Player(raw_input("What be yer name? "))
 #theBoardSize = int(raw_input("How large a board? (recommend 10)"))
 theBoardSize = 10 # right now the board size must be 10 to keep 'coordinateReference' simple
-numBoats = int(raw_input("How many boats? (recommend 3)"))
+numBoats = int(raw_input("How many boats do ye desire to sink today? (recommend 3)"))
 
 ###########################
 #     create elements
@@ -22,13 +22,17 @@ coordinateReference = { 'A':0, 'B':1, 'C':2,'D':3, 'E':4, 'F':5, 'G':6, 'H':7, '
 # create the board
 board = gameboard.GameBoard(theBoardSize)
 
-# create the boats. Boat coordinates are dictionaries with tuples as the coordinates and 'o' as the initial values (when hit, value changes to 'x')
+# create the boats. Boat coordinates are dictionaries with tuples as the coordinates, and 'o' as the initial values (when hit, value changes to 'x')
 boatList = []
 for num in range(numBoats):
-    #make sure the boats don't overlap (eventually, not right now)
-    #
-    #
-    boatList.append(boat.Boat(boardSize=theBoardSize))
+    newBoat = boat.Boat(boardSize=theBoardSize)
+    # now we're going to compare the boat we just made to the list of boats - making sure it doesn't overlap them
+    for key in newBoat.getCoordinates():
+        while key in boatList: # if any of the coordinates show up in current boatList, remake the newBoat and keep checking until it doesn't show up in boats already made
+            print("found boat in list, regenerating a new boat.")
+            newBoat = boat.Boat(boardSize=theBoardSize)
+    # once the boat has been compared
+    boatList.append(newBoat)
 
 ###########################
 #     Play the game!
@@ -40,33 +44,38 @@ def clearScreen():
 while numBoats > 0:
     clearScreen()
     board.draw()
-    
+    print('Boats Left:', numBoats)
     move = raw_input("Arr, make yer move " + player1.name() + "! (example: C4)")
 
     # convert move to int format (note x and y coords are reversed cuz in Battleship the letter is the row, yadda yadda, oops)
-    y = int(coordinateReference[move[0].upper()])
-    x = int(move[1])
+    ns = int(coordinateReference[move[0].upper()])
+    ew = int(move[1])
 
     # check to see if move is a hit or miss
     for boat in boatList:
-        if (x,y) in boat.getCoordinates():
-            boat.isHit(x,y)
-            board.updateHit(x,y)
+        if (ns,ew) in boat.getCoordinates():
+            boat.isHit(ns,ew)
+            board.updateHit(ns,ew)
+            # after hitting the boat, check to see if it is sunk
             if boat.isSunk() == True:
                 numBoats = numBoats - 1
+            print()
             print("xxxxxxxxxxxxxxx Boat was hit! xxxxxxxxxxxxxx")
             print("xxxxxxxxxxxxxxx Boat was hit! xxxxxxxxxxxxxx")
             print("xxxxxxxxxxxxxxx Boat was hit! xxxxxxxxxxxxxx")
+            print()
             break
     else:
-        board.updateMiss(x,y)
+        board.updateMiss(ns,ew)
+        print()
         print("oooooooooo Miss ooooooooooooooo")
         print("oooooooooo Miss ooooooooooooooo")
         print("oooooooooo Miss ooooooooooooooo")
+        print()
     
     #TEST
-    print(move[1], "became", x)
-    print(move[0], "became", y)
+    print(move[0], "became", ns)
+    print(move[1], "became", ew)
     print("Number of boats left: ", numBoats)
     for boat in boatList:
         print(boat.getCoordinates())

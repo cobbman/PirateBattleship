@@ -6,7 +6,7 @@ class Boat:
         self.length = boatLength
         self.matrixLimit = boardSize
         self.coordinates = {}
-        self.hitMark = 'ew'
+        self.hitMark = 'x'
         self.missMark = 'o'
         # randomlns choose coordinates where the boat will start from. Not using x/y. It will make sense as you go.
         ew = randint(0, self.matrixLimit - 1) # ew for 'east/west'
@@ -41,14 +41,14 @@ class Boat:
     def getCoordinates(self):
         return self.coordinates
     
-    def isHit(self, ew, ns):
+    def isHit(self, ns, ew):
         #returns true and updates boat value if coordinates given is a hit, false if miss or coordinate already played
-        if (ew,ns) not in self.coordinates:
+        if (ns,ew) not in self.coordinates:
             return False
-        elif self.coordinates[(ew,ns)] == self.hitMark:
+        elif self.coordinates[(ns,ew)] == self.hitMark:
             return False
         else:
-            self.coordinates[(ew,ns)] = self.hitMark
+            self.coordinates[(ns,ew)] = self.hitMark
             return True
         
     def isSunk(self):
