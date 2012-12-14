@@ -39,18 +39,14 @@ class GameBoard:
             
     def draw(self):
         # STILL NEED TO PRINT THE ROW AND COL HEADERS SO THE USER KNOWS WHICH COORDINATES TO USE
-        for row in self.grid:
+        rowHead = "ABCDEFGHIJ"
+        print("  0 1 2 3 4 5 6 7 8 9")
+        for label, row in zip(rowHead, self.grid):
+            print(label,end=" ")
             for col in row:
                 print('{0:1}'.format(col), end=" ")
             print()
 
-        """for x in range(1,11):
-            print ('{0:1d} {1:3d} {2:5d}'.format(x, x*x, x*x*x))
-
-        for x in range(1,11):
-            print (repr(x).rjust(2), repr(x*x).rjust(3), repr(x*x*x).rjust(4))
-        """
-"""
 # for testing purposes
 board = GameBoard(10)
 board.updateHit(3,4)
@@ -59,12 +55,3 @@ board.updateMiss(2,0)
 board.updateMiss(2,2)
 board.updateHit(5,3)
 board.draw()
-"""
-"""
-How the game board display will work:
-gameBoard will be an object that will be an array.
-we will use dictionary values to match 'A' to 0, 'B' to 1, etc...
-so that when the user makes a move, we can easily use
-array[dict['A']][4] to identify the board location.
-Then, we can update the array easily for showing the user.        
-"""

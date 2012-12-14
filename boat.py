@@ -6,16 +6,16 @@ class Boat:
         self.length = boatLength
         self.matrixLimit = boardSize
         self.coordinates = {}
-        self.hitMark = 'x'
-        self.notHitMark = 'o'
-        # randomly choose coordinates where the boat will start from
-        x = randint(0, self.matrixLimit - 1)
-        y = randint(0, self.matrixLimit - 1)       
+        self.hitMark = 'ew'
+        self.missMark = 'o'
+        # randomlns choose coordinates where the boat will start from. Not using x/y. It will make sense as you go.
+        ew = randint(0, self.matrixLimit - 1) # ew for 'east/west'
+        ns = randint(0, self.matrixLimit - 1) # ns for 'north/south'
         
         # Choose a direction the boat will be facing, and check to make sure it doesn't run off the board
         def setDirection():
             d = randint(0,3)  # 0 = north, 1 = east, 2 = south, 3 = west
-            if (d == 0 and y-(self.length-1) < 0) or (d == 1 and x+(self.length-1) > 9) or (d == 2 and y+(self.length-1) > 9) or (d == 3 and x-(self.length-1) < 0):
+            if (d == 0 and ns-(self.length-1) < 0) or (d == 1 and ew+(self.length-1) > 9) or (d == 2 and ns+(self.length-1) > 9) or (d == 3 and ew-(self.length-1) < 0):
                 setDirection()
             return d
         direction = setDirection()
@@ -23,43 +23,43 @@ class Boat:
         # Now create the boat based on what direction it is facing
         if direction == 0: # if facing NORTH
             for i in range(self.length):
-                self.coordinates[(x,y)] = self.notHitMark
-                y = y - 1
+                self.coordinates[(ns,ew)] = self.missMark
+                ns = ns - 1
         if direction == 1: # if facing EAST
             for i in range(self.length):
-                self.coordinates[(x,y)] = self.notHitMark
-                x = x + 1
+                self.coordinates[(ns,ew)] = self.missMark
+                ew = ew + 1
         if direction == 2: # if facing SOUTH
             for i in range(self.length):
-                self.coordinates[(x,y)] = self.notHitMark
-                y = y + 1
+                self.coordinates[(ns,ew)] = self.missMark
+                ns = ns + 1
         if direction == 3: # if facing WEST
             for i in range(self.length):
-                self.coordinates[(x,y)] = self.notHitMark
-                x = x - 1
+                self.coordinates[(ns,ew)] = self.missMark
+                ew = ew - 1
         
     def getCoordinates(self):
         return self.coordinates
     
-    def isHit(self, x, y):
+    def isHit(self, ew, ns):
         #returns true and updates boat value if coordinates given is a hit, false if miss or coordinate already played
-        if (x,y) not in self.coordinates:
+        if (ew,ns) not in self.coordinates:
             return False
-        elif self.coordinates[(x,y)] == self.hitMark:
+        elif self.coordinates[(ew,ns)] == self.hitMark:
             return False
         else:
-            self.coordinates[(x,y)] = self.hitMark
+            self.coordinates[(ew,ns)] = self.hitMark
             return True
         
     def isSunk(self):
         #returns true if the boat is sunk (all coordinates have been hit)
-        return not (self.notHitMark in self.coordinates.values())
+        return not (self.missMark in self.coordinates.values())
     
-    def numberNotHit(self):
-        # returns how many coords have not been hit yet
+    def numberMissed(self):
+        # returns how manns coords have not been hit nset
         count = 0
         for key in self.coordinates:
-            if self.coordinates[key] == self.notHitMark:
+            if self.coordinates[key] == self.missMark:
                 count = count + 1
         return count
 
