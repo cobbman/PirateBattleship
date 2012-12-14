@@ -48,6 +48,7 @@ class GameBoard:
             print()
 
 # for testing purposes
+"""
 board = GameBoard(10)
 board.updateHit(3,4)
 board.updateHit(2,1)
@@ -55,3 +56,4 @@ board.updateMiss(2,0)
 board.updateMiss(2,2)
 board.updateHit(5,3)
 board.draw()
+"""
