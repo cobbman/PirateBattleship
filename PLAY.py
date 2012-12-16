@@ -40,18 +40,20 @@ for num in range(numBoats):
 def clearScreen():
     for i in range(5):
         print()
-
+moveResult = ''
 while numBoats > 0:
     clearScreen()
     board.draw()
+    if len(moveResult) > 0:
+        print(moveResult)
     print('Boats Left:', numBoats)
     move = raw_input("Arr, make yer move " + player1.name() + "! (example: C4)")
 
-    # convert move to int format (note x and y coords are reversed cuz in Battleship the letter is the row, yadda yadda, oops)
+    # convert move to int
     ns = int(coordinateReference[move[0].upper()])
     ew = int(move[1])
 
-    # check to see if move is a hit or miss
+    # cycle through the boats and check to see if move is a hit or miss
     for boat in boatList:
         if (ns,ew) in boat.getCoordinates():
             boat.isHit(ns,ew)
@@ -59,19 +61,11 @@ while numBoats > 0:
             # after hitting the boat, check to see if it is sunk
             if boat.isSunk() == True:
                 numBoats = numBoats - 1
-            print()
-            print("xxxxxxxxxxxxxxx Boat was hit! xxxxxxxxxxxxxx")
-            print("xxxxxxxxxxxxxxx Boat was hit! xxxxxxxxxxxxxx")
-            print("xxxxxxxxxxxxxxx Boat was hit! xxxxxxxxxxxxxx")
-            print()
+            moveResult = "xxxxxxxxxxxxxx HIT xxxxxxxxxxxxxx"
             break
     else:
         board.updateMiss(ns,ew)
-        print()
-        print("oooooooooo Miss ooooooooooooooo")
-        print("oooooooooo Miss ooooooooooooooo")
-        print("oooooooooo Miss ooooooooooooooo")
-        print()
+        moveResult = "oooooooooo Miss ooooooooooooooo"
     
     #TEST
     print(move[0], "became", ns)

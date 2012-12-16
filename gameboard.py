@@ -38,7 +38,6 @@ class GameBoard:
             self.grid[row][col] = missMark
             
     def draw(self):
-        # STILL NEED TO PRINT THE ROW AND COL HEADERS SO THE USER KNOWS WHICH COORDINATES TO USE
         rowHead = "ABCDEFGHIJ"
         print("  0 1 2 3 4 5 6 7 8 9")
         for label, row in zip(rowHead, self.grid):
