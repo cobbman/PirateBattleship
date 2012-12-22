@@ -3,14 +3,22 @@ import boat
 import gameboard
 import player
 
+# Some helper functions/hacks that work for now:
+def clearScreen():
+    for i in range(5):
+        print()
+
 ########################### 
 #      introduction
 ###########################
+
 print("Yarr Pirate Battleship matey!")
 player1 = player.Player(raw_input("What be yer name? "))
 #theBoardSize = int(raw_input("How large a board? (recommend 10)"))
 theBoardSize = 10 # right now the board size must be 10 to keep 'coordinateReference' simple
 numBoats = int(raw_input("How many boats do ye desire to sink today? (recommend 3)"))
+
+
 
 ###########################
 #     create elements
@@ -31,15 +39,13 @@ for num in range(numBoats):
         while key in boatList: # if any of the coordinates show up in current boatList, remake the newBoat and keep checking until it doesn't show up in boats already made
             print("found boat in list, regenerating a new boat.")
             newBoat = boat.Boat(boardSize=theBoardSize)
-    # once the boat has been compared
+    # once the boat has been compared and checks out to be unique and not overlapping
     boatList.append(newBoat)
 
 ###########################
 #     Play the game!
 ###########################
-def clearScreen():
-    for i in range(5):
-        print()
+
 moveResult = ''
 while numBoats > 0:
     clearScreen()
@@ -47,7 +53,7 @@ while numBoats > 0:
     if len(moveResult) > 0:
         print(moveResult)
     print('Boats Left:', numBoats)
-    move = raw_input("Arr, make yer move " + player1.name() + "! (example: C4)")
+    move = raw_input("Arr, make yer move " + player1.getName() + "! (example: C4)")
 
     # convert move to int
     ns = int(coordinateReference[move[0].upper()])

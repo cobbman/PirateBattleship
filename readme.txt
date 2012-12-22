@@ -13,9 +13,10 @@ player.py - creates a player. Just keeping it here until this game becomes multi
 
 
 To Do:
-1. Add visual ASCII when boat is hit or  miss to make it more fun
+1. Add visual ASCII when boat is hit or  miss to make it more fun (overall user experience needs improving)
 2. validate inputs, so if user makes an invalid move it won't break
 3. add feature to create boats of different sizes
 4. *** put checks in place to make sure boats don't overlap!
-5. BUG: some of the boats have negative coordinates… need to fix
+5. DONE, AND SIMPLIFIED: some of the boats have negative coordinates… need to fix (boat.py)
 6. DONE: Update board draw method so it shows coordinate headers that the user can see
+7. clean up PLAY.py - code there is messy

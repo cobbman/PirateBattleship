@@ -2,22 +2,18 @@ class Player:
     """ Creates a Player object. Good for future implementations when this game will become multiplayer"""
 
     def __init__(self, iName):
-        self.playerName = iName
-        self.playerScore = 0
+        self.name = iName
+        self.score = 0
     
-    def name(self):
-        return self.playerName
+    def getName(self):
+        return self.name
 
-    def score(self):
+    def getScore(self):
         # will return the player's score (future use)
         return True
 
-    def numberOfMoves(self):
-        # will return the number of moves a player has made
-        return True
+    def updateScore(self, points):
+        return self.score + points
 
-    def boatsLeft(self):
-        # will return number of boats not sunk
-        return True
 
         

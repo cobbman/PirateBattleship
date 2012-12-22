@@ -1,43 +1,37 @@
 from random import randint
+
 class Boat:
-    """Create a boat object with specified length. Default length is 3. ASSUMES that boardSize is > boatLength"""
+    """Create a boat object with specified length. Default length is 3. Prereq: boardSize is > boatLength"""
     
     def __init__(self, boatLength=3, boardSize=10):
         self.length = boatLength
         self.matrixLimit = boardSize
-        self.coordinates = {}
+        self.coordinates = {} # declare and empty dict used for the boat coordinates later on
         self.hitMark = 'x'
         self.missMark = 'o'
-        # randomlns choose coordinates where the boat will start from. Not using x/y. It will make sense as you go.
-        ew = randint(0, self.matrixLimit - 1) # ew for 'east/west'
-        ns = randint(0, self.matrixLimit - 1) # ns for 'north/south'
-        
-        # Choose a direction the boat will be facing, and check to make sure it doesn't run off the board
-        def setDirection():
-            d = randint(0,3)  # 0 = north, 1 = east, 2 = south, 3 = west
-            if (d == 0 and ns-(self.length-1) < 0) or (d == 1 and ew+(self.length-1) > 9) or (d == 2 and ns+(self.length-1) > 9) or (d == 3 and ew-(self.length-1) < 0):
-                setDirection()
-            return d
-        direction = setDirection()
+        boatDirection = randint(0,1) # random direction the boat will be facing. 0 is vert, 1 is horiz
 
-        # Now create the boat based on what direction it is facing
-        if direction == 0: # if facing NORTH
-            for i in range(self.length):
-                self.coordinates[(ns,ew)] = self.missMark
-                ns = ns - 1
-        if direction == 1: # if facing EAST
-            for i in range(self.length):
-                self.coordinates[(ns,ew)] = self.missMark
-                ew = ew + 1
-        if direction == 2: # if facing SOUTH
-            for i in range(self.length):
-                self.coordinates[(ns,ew)] = self.missMark
-                ns = ns + 1
-        if direction == 3: # if facing WEST
-            for i in range(self.length):
-                self.coordinates[(ns,ew)] = self.missMark
-                ew = ew - 1
+        # randomly choose the coordinate the boat will start from.
+        # x counts to the right, y counts down (i.e. on a graph, we're in Q4) 
+        x = randint(0, self.matrixLimit - self.length)
+        y = randint(0, self.matrixLimit - self.length)
+        # NOTE: By subtracting the boat length from the board size, we are making sure that the boat won't be placed outside the board
         
+
+        # Now we will create the boat coordinates (using the empty dictionary declared above)
+        # The keys will be tuples of the coordinates; default values are set to the missMark
+        if boatDirection == 0: # if direction is verticle (0) add to the y coordinates
+            for i in range(self.length):
+                self.coordinates[(x,y)] = self.missMark
+                y = y + 1
+
+        # if direction is horizontal (1) add to the x coordinates
+        if boatDirection == 1:
+            for i in range(self.length):
+                self.coordinates[(x,y)] = self.missMark
+                x = x + 1
+
+    
     def getCoordinates(self):
         return self.coordinates
     

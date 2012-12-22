@@ -5,8 +5,8 @@ class GameBoard:
     """(int, str)
     Create a square grid. Default is 10x10 with '.' as initial values.
     """
-    def __init__(self, setSize=10, setMark='.'):
-        self.size = setSize
+    def __init__(self, boardSize=10, setMark='.'):
+        self.size = boardSize
         self.mark = setMark 
         self.grid = [ [ self.mark for row in range(self.size) ] for col in range(self.size) ]
 
@@ -30,12 +30,14 @@ class GameBoard:
             return False # Already been played
         else:
             self.grid[row][col] = hitMark
+            return True
             
     def updateMiss(self, row, col, missMark='o'):
         if self.grid[row][col] != self.mark:
             return False # Already been played
         else:
             self.grid[row][col] = missMark
+            return True
             
     def draw(self):
         rowHead = "ABCDEFGHIJ"
