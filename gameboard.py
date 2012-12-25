@@ -40,7 +40,7 @@ class GameBoard:
             return True
             
     def draw(self):
-        rowHead = "ABCDEFGHIJ"
+        rowHead = "ABCDEFGHIJ" # will be used as a reference for the player to see
         print("  0 1 2 3 4 5 6 7 8 9")
         for label, row in zip(rowHead, self.grid):
             print(label,end=" ")

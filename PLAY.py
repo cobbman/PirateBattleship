@@ -12,13 +12,9 @@ def clearScreen():
 #      introduction
 ###########################
 
-print("Yarr Pirate Battleship matey!")
+print("Yarr Pirate Battleship matey! ", end="")
 player1 = player.Player(raw_input("What be yer name? "))
-#theBoardSize = int(raw_input("How large a board? (recommend 10)"))
-theBoardSize = 10 # right now the board size must be 10 to keep 'coordinateReference' simple
 numBoats = int(raw_input("How many boats do ye desire to sink today? (recommend 3)"))
-
-
 
 ###########################
 #     create elements
@@ -28,32 +24,44 @@ numBoats = int(raw_input("How many boats do ye desire to sink today? (recommend 
 coordinateReference = { 'A':0, 'B':1, 'C':2,'D':3, 'E':4, 'F':5, 'G':6, 'H':7, 'I':8, 'J':9 }
 
 # create the board
-board = gameboard.GameBoard(theBoardSize)
+board = gameboard.GameBoard()
 
 # create the boats. Boat coordinates are dictionaries with tuples as the coordinates, and 'o' as the initial values (when hit, value changes to 'x')
 boatList = []
 for num in range(numBoats):
-    newBoat = boat.Boat(boardSize=theBoardSize)
-    # now we're going to compare the boat we just made to the list of boats - making sure it doesn't overlap them
-    for key in newBoat.getCoordinates():
-        while key in boatList: # if any of the coordinates show up in current boatList, remake the newBoat and keep checking until it doesn't show up in boats already made
-            print("found boat in list, regenerating a new boat.")
-            newBoat = boat.Boat(boardSize=theBoardSize)
-    # once the boat has been compared and checks out to be unique and not overlapping
+    newBoat = boat.Boat()
+    print("Created boat", num, "at these coordinates:", newBoat.getCoordinates().keys())
+
+    # check to make sure newBoat doesn't overlap current boats
+    #
+    #
+    #
+    #
+    THIS MIGHT NEED TO BE FIXED STILL
+    for eachBoat in boatList:
+        while (len(frozenset(newBoat.getCoordinates().keys()).intersection(eachBoat.getCoordinates().keys())) > 0):
+            print("*** a boat overlapped, creating a new one ***")
+            newBoat = boat.Boat()
+
+    # append our new boat to the boatList
     boatList.append(newBoat)
+
 
 ###########################
 #     Play the game!
 ###########################
 
-moveResult = ''
+moveResult = '' # tells the user if it is a hit or not
 while numBoats > 0:
     clearScreen()
     board.draw()
     if len(moveResult) > 0:
         print(moveResult)
     print('Boats Left:', numBoats)
-    move = raw_input("Arr, make yer move " + player1.getName() + "! (example: C4)")
+    move = ""
+    # check the move and validate it
+    while len(move) != 2:
+        move = raw_input("Arr, make yer move " + player1.getName() + "! (example: C4) => ")
 
     # convert move to int
     ns = int(coordinateReference[move[0].upper()])
