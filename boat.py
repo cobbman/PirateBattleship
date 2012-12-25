@@ -7,30 +7,32 @@ class Boat:
         self.length = boatLength
         self.matrixLimit = boardSize
         self.coordinates = {} # declare and empty dict used for the boat coordinates later on
-        self.hitMark = 'x'
+        self.hitMark  = 'x'
         self.missMark = 'o'
+
+
         boatDirection = randint(0,1) # random direction the boat will be facing. 0 is vert, 1 is horiz
-
-        # randomly choose the coordinate the boat will start from.
+        # Creating the boat coordinates now based on what direction it's facing.
         # x counts to the right, y counts down (i.e. on a graph, we're in Q4) 
-        x = randint(0, self.matrixLimit - self.length)
-        y = randint(0, self.matrixLimit - self.length)
-        # NOTE: By subtracting the boat length from the board size, we are making sure that the boat won't be placed outside the board
-        
-
-        # Now we will create the boat coordinates (using the empty dictionary declared above)
         # The keys will be tuples of the coordinates; default values are set to the missMark
+
         if boatDirection == 0: # if direction is verticle (0) add to the y coordinates
+            # randomly choose the starting point, but limit to the size of the board
+            x = randint(0, self.matrixLimit - 1)
+            y = randint(0, self.matrixLimit - self.length) # use self.length so it won't run off the board
             for i in range(self.length):
                 self.coordinates[(x,y)] = self.missMark
                 y = y + 1
 
-        # if direction is horizontal (1) add to the x coordinates
+        # if direction is horizontal (1) add to the x coordinates     
         if boatDirection == 1:
+            # randomly choose the starting point, but limit to the size of the board
+            x = randint(0, self.matrixLimit - 1)
+            x = randint(0, self.matrixLimit - self.length) # use self.length so it won't run off the board
+            y = randint(0, self.matrixLimit - 1)
             for i in range(self.length):
                 self.coordinates[(x,y)] = self.missMark
                 x = x + 1
-
     
     def getCoordinates(self):
         return self.coordinates
