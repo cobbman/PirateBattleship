@@ -1,10 +1,23 @@
-from __future__ import print_function # makes the print() function compatible with older versions of python
-import boat
-import gameboard
-import player
+from __future__ import print_function # makes the newer print() function compatible with older versions of python
+import boat # the boat class that creates boat objects
+import gameboard # the gameboard class that creates the board object
+import player # a player class for players objects
 
-# Some helper functions/hacks that work for now:
+
+########################### 
+#     helper stuff
+###########################
+
+# create a dictionary for referencing coordinates from the player to the computer
+coordinateReference = { 'A':0, 'B':1, 'C':2,'D':3, 'E':4, 'F':5, 'G':6, 'H':7, 'I':8, 'J':9 }
+
+# 'clears' the screen
 def clearScreen():
+    for i in range(50):
+        print()
+
+# make some room
+def makeRoom():
     for i in range(5):
         print()
 
@@ -12,26 +25,27 @@ def clearScreen():
 #      introduction
 ###########################
 
-print("Yarr Pirate Battleship matey! ", end="")
-player1 = player.Player(raw_input("What be yer name? "))
-numBoats = int(raw_input("How many boats do ye desire to sink today? (recommend 3)"))
+print("Pirate Battleship ASCII ART goes here")
+raw_input("Press Enter to continue...")
+clearScreen()
+
+player1 = player.Player(raw_input("Welcome aboard Capt'n! What be yer name? "))
+numBoats = int(raw_input("How many boats do ye desire to sink today? (recommend 3) "))
 
 ###########################
 #     create elements
 ###########################
 
-# create a dictionary for referencing coordinates from the player to the computer
-coordinateReference = { 'A':0, 'B':1, 'C':2,'D':3, 'E':4, 'F':5, 'G':6, 'H':7, 'I':8, 'J':9 }
-
 # create the board
 board = gameboard.GameBoard()
 
-# create the boats. Boat coordinates are dictionaries with tuples as the coordinates, and 'o' as the initial values (when hit, value changes to 'x')
+# create the boats. Boat coordinates are dictionaries with tuples as the coordinates
+# and 'o' as the initial values (when hit, value changes to 'x')
 boatList = []
 for num in range(numBoats):
     newBoat = boat.Boat()
     print("Created boat", num, "at these coordinates:", newBoat.getCoordinates().keys())
-
+    """
     # check to make sure newBoat doesn't overlap current boats
     #
     #
@@ -42,7 +56,7 @@ for num in range(numBoats):
         while (len(frozenset(newBoat.getCoordinates().keys()).intersection(eachBoat.getCoordinates().keys())) > 0):
             print("*** a boat overlapped, creating a new one ***")
             newBoat = boat.Boat()
-
+    """
     # append our new boat to the boatList
     boatList.append(newBoat)
 
@@ -61,7 +75,7 @@ while numBoats > 0:
     move = ""
     # check the move and validate it
     while len(move) != 2:
-        move = raw_input("Arr, make yer move " + player1.getName() + "! (example: C4) => ")
+        move = raw_input("Arr, make yer move Capt'n " + player1.getName() + "! (example: C4) => ")
 
     # convert move to int
     ns = int(coordinateReference[move[0].upper()])
