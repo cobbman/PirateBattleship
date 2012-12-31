@@ -8,7 +8,7 @@ import player # a player class for players objects
 #     helper stuff
 ###########################
 
-# create a dictionary for referencing coordinates from the player to the computer
+# reference coordinates from the player to the computer
 coordinateReference = { 'A':0, 'B':1, 'C':2,'D':3, 'E':4, 'F':5, 'G':6, 'H':7, 'I':8, 'J':9 }
 
 # 'clears' the screen
@@ -26,21 +26,19 @@ def makeRoom():
 ###########################
 
 print("Pirate Battleship ASCII ART goes here")
-raw_input("Press Enter to continue...")
-clearScreen()
 
 player1 = player.Player(raw_input("Welcome aboard Capt'n! What be yer name? "))
 numBoats = int(raw_input("How many boats do ye desire to sink today? (recommend 3) "))
+
+clearScreen()
 
 ###########################
 #     create elements
 ###########################
 
-# create the board
 board = gameboard.GameBoard()
 
-# create the boats. Boat coordinates are dictionaries with tuples as the coordinates
-# and 'o' as the initial values (when hit, value changes to 'x')
+# Boat coordinates are tuples as the keys and 'o' as initial values (when hit, value changes to 'x')
 boatList = []
 for num in range(numBoats):
     newBoat = boat.Boat()
@@ -104,9 +102,10 @@ while numBoats > 0:
 
 clearScreen()
 board.draw()    
-print("Game is over. Ye are a true Pirate!") 
-for i in range(5):
-    print()
+
+print("YOU WIN! Ye are a true Pirate Capt'n", player1.getName()) 
+
+makeRoom()
 
 
 """
