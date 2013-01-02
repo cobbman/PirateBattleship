@@ -4,6 +4,7 @@ class Boat:
     """Create a boat object with specified length. Default length is 3. Prereq: boardSize is > boatLength"""
     
     def __init__(self, boatLength=3, boardSize=10):
+        self.name = ''
         self.length = boatLength
         self.matrixLimit = boardSize
         self.coordinates = {} # declare and empty dict used for the boat coordinates later on

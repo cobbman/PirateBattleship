@@ -5,13 +5,21 @@ import player # a player class for players objects
 
 
 ########################### 
-#     helper stuff
+#     helper functions
 ###########################
 
 # reference coordinates from the player to the computer
 coordinateReference = { 'A':0, 'B':1, 'C':2,'D':3, 'E':4, 'F':5, 'G':6, 'H':7, 'I':8, 'J':9 }
 
-# 'clears' the screen
+def checkIfBoatsOverlap(num, newBoat, boatList):
+    for eachBoat in boatList:
+        boatCheck = set( eachBoat.getCoordinates() ) & set( newBoat.getCoordinates() )
+        if len( boatCheck ) > 0:
+            print("Our new boat", num, newBoat.getCoordinates().keys(), "overlaps a boat in our list at:", boatCheck)
+            return True
+    return False
+
+# "clears" the screen in a primitive fashion
 def clearScreen():
     for i in range(50):
         print()
@@ -27,37 +35,33 @@ def makeRoom():
 
 print("Pirate Battleship ASCII ART goes here")
 
-player1 = player.Player(raw_input("Welcome aboard Capt'n! What be yer name? "))
-numberOfBoats = int(raw_input("How many boats do ye desire to sink today? (recommend 3) "))
+player1 = player.Player( raw_input("Welcome aboard Capt'n! What be yer name? ") )
+numberOfBoats = int( raw_input("How many boats do ye desire to sink today? (recommend 3) ") )
 
 
 ###########################
 #     create elements
 ###########################
 
-board = gameboard.GameBoard()
+board = gameboard.GameBoard() # create the board!
 
-boatList = [] # Boat coordinates are tuples as the keys and 'o' as initial values (when hit, value changes to 'x')
+boatList = [] # Create an empty list of boats!
 
+# Create as many boats as was requested!
 for num in range(numberOfBoats):
+    
     newBoat = boat.Boat()
 
-    print("Created boat", num, "at these coordinates:", newBoat.getCoordinates().keys())
-    
-    """
-    # check to make sure newBoat doesn't overlap current boats
-    #
-    #
-    #
-    #
-    THIS MIGHT NEED TO BE FIXED STILL
-    for eachBoat in boatList:
-        while (len(frozenset(newBoat.getCoordinates().keys()).intersection(eachBoat.getCoordinates().keys())) > 0):
-            print("*** a boat overlapped, creating a new one ***")
+    # Check to make sure our newBoat doesn't overlap an existing boat
+    if boatList > 0:
+        while checkIfBoatsOverlap(num, newBoat, boatList):
             newBoat = boat.Boat()
-    """
+
     # append our new boat to the boatList
     boatList.append(newBoat)
+
+    # for testing purposes, print the boat coordinates
+    print("Created boat", num, "at these coordinates:", newBoat.getCoordinates().keys() )
 
 
 ######################################################
