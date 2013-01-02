@@ -17,17 +17,16 @@ class Boat:
         # The keys will be tuples of the coordinates; default values are set to the missMark
 
         if boatDirection == 0: # if direction is verticle (0) add to the y coordinates
-            # randomly choose the starting point, but limit to the size of the board
+            # randomly choose the starting point
             x = randint(0, self.matrixLimit - 1)
             y = randint(0, self.matrixLimit - self.length) # use self.length so it won't run off the board
             for i in range(self.length):
                 self.coordinates[(x,y)] = self.missMark
                 y = y + 1
 
-        # if direction is horizontal (1) add to the x coordinates     
-        if boatDirection == 1:
-            # randomly choose the starting point, but limit to the size of the board
-            x = randint(0, self.matrixLimit - 1)
+             
+        if boatDirection == 1: # if direction is horizontal (1) add to the x coordinates
+            # randomly choose the starting point
             x = randint(0, self.matrixLimit - self.length) # use self.length so it won't run off the board
             y = randint(0, self.matrixLimit - 1)
             for i in range(self.length):

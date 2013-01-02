@@ -28,9 +28,8 @@ def makeRoom():
 print("Pirate Battleship ASCII ART goes here")
 
 player1 = player.Player(raw_input("Welcome aboard Capt'n! What be yer name? "))
-numBoats = int(raw_input("How many boats do ye desire to sink today? (recommend 3) "))
+numberOfBoats = int(raw_input("How many boats do ye desire to sink today? (recommend 3) "))
 
-clearScreen()
 
 ###########################
 #     create elements
@@ -38,11 +37,13 @@ clearScreen()
 
 board = gameboard.GameBoard()
 
-# Boat coordinates are tuples as the keys and 'o' as initial values (when hit, value changes to 'x')
-boatList = []
-for num in range(numBoats):
+boatList = [] # Boat coordinates are tuples as the keys and 'o' as initial values (when hit, value changes to 'x')
+
+for num in range(numberOfBoats):
     newBoat = boat.Boat()
+
     print("Created boat", num, "at these coordinates:", newBoat.getCoordinates().keys())
+    
     """
     # check to make sure newBoat doesn't overlap current boats
     #
@@ -59,48 +60,59 @@ for num in range(numBoats):
     boatList.append(newBoat)
 
 
-###########################
-#     Play the game!
-###########################
+######################################################
+#         Now we are ready to play the game!
+######################################################
 
 moveResult = '' # tells the user if it is a hit or not
-while numBoats > 0:
-    clearScreen()
-    board.draw()
-    if len(moveResult) > 0:
-        print(moveResult)
-    print('Boats Left:', numBoats)
-    move = ""
-    # check the move and validate it
-    while len(move) != 2:
-        move = raw_input("Arr, make yer move Capt'n " + player1.getName() + "! (example: C4) => ")
 
-    # convert move to int
-    ns = int(coordinateReference[move[0].upper()])
-    ew = int(move[1])
+def getPlayerMove():
+    return raw_input("Arr, Capt'n " + player1.get_Name() + "! Make yer move! (example: C5) => ")
 
+def checkMoveAgainstBoats(xCord, yCord):
     # cycle through the boats and check to see if move is a hit or miss
     for boat in boatList:
-        if (ns,ew) in boat.getCoordinates():
-            boat.isHit(ns,ew)
-            board.updateHit(ns,ew)
+        if (xCord,yCord) in boat.getCoordinates():
+            boat.isHit(xCord,yCord)
+            board.updateHit(xCord,yCord)
+
             # after hitting the boat, check to see if it is sunk
             if boat.isSunk() == True:
-                numBoats = numBoats - 1
+                numberOfBoats -= 1
+                print("Ye SUNK a ship!!!")
+
             moveResult = "xxxxxxxxxxxxxx HIT xxxxxxxxxxxxxx"
             break
     else:
         board.updateMiss(ns,ew)
         moveResult = "oooooooooo Miss ooooooooooooooo"
+
+
+while numberOfBoats > 0:
+    
+    board.draw()
+    if len(moveResult) > 0:
+        print(moveResult)
+    print('Boats Left:', numberOfBoats)
+    move = ""
+
+    # check the move and validate it
+    while len(move) != 2:
+        move = raw_input("Arr, make yer move Capt'n " + player1.get_Name() + "! (example: C4) => ")
+
+    # convert move to int
+    ns = int(coordinateReference[move[0].upper()])
+    ew = int(move[1])
+
+    checkMoveAgainstBoats(ew,ns)
     
     #TEST
     print(move[0], "became", ns)
     print(move[1], "became", ew)
-    print("Number of boats left: ", numBoats)
+    print("Number of boats left: ", numberOfBoats)
     for boat in boatList:
         print(boat.getCoordinates())
 
-clearScreen()
 board.draw()    
 
 print("YOU WIN! Ye are a true Pirate Capt'n", player1.getName()) 

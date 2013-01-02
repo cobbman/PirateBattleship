@@ -3,7 +3,7 @@ readme.txt
 This game is not finished and still in production!!!
 Comments or questions can be emailed to me: hello@bigwilliam.com
 
-If you want to try it for what I have so far, run in your terminal: python PLAY.py
+If you want to try it for what I have so far, run in your terminal: python playgame.py
 
 Files:
 PLAY.py - interacts with the user and calls the other modules
