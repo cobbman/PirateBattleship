@@ -33,7 +33,7 @@ Just some notes about how the game functions:
 Normally coordinates on a graph are declared in the order x,y. But in Battleship, the user declares their move in the order y,x. For example, a player's move in Battleshihp might be "C4" - where "C" refers to the amount of rows DOWN (aka the 'y' domain) and "4" refers to the columns to the RIGHT (aka the 'x' domain), so they are being declared in reverse order.
 
 So what is the correct way to prevent these from being mixed up?
-1. We could just consider all coordinates in the classes to be in the order y,x. But the problem there would be that if the classes were to be used in another context, the y,x format would mess things up.
-2. We could just take the user input, reverse it to match the "x,y" format and go from there, keeping all coordinate values in the classes as "x,y". 
+1. We could just consider all coordinates in the classes to be in the order y,x. But the problem there would be that if the classes were to be used in another context, the y,x format would mess things up for them.
+2. We could just take the user input, reverse it to match the "x,y" format and go from there, keeping all coordinate values in the classes as "x,y". The user interface would stay the same, and the game would go on.
 
 The solution will be #2. 
