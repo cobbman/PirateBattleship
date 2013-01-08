@@ -6,7 +6,7 @@ Comments or questions can be emailed to me: hello@bigwilliam.com
 If you want to try it for what I have so far, run in your terminal: python playgame.py
 
 Files:
-PLAY.py - interacts with the user and calls the other modules
+playgame.py - interacts with the user and calls the other modules
 boat.py - boat class, creates a boat object
 gameboard.py - creates a board that can be different sizes (default is 10x10)
 player.py - creates a player. Right now the game is only 1 player
@@ -30,10 +30,11 @@ FUNCTIONALITY:
 
 Just some notes about how the game functions:
 
-Normally coordinates on a graph are declared in the order x,y. But in Battleship, the user declares their move in the order y,x. For example, a player's move in Battleshihp might be "C4" - where "C" refers to the amount of rows DOWN (aka the 'y' domain) and "4" refers to the columns to the RIGHT (aka the 'x' domain), so they are being declared in reverse order.
+Normally coordinates on a graph are declared in the order x,y. But in Battleship, the user declares their move in the order y,x. For example, a player's move in Battleshihp might be "C4" - where "C" refers to the amount of rows DOWN (aka the 'y' axis) and "4" refers to the columns to the RIGHT (aka the 'x' axis), so they are being declared in reverse order.
 
 So what is the correct way to prevent these from being mixed up?
-1. We could just consider all coordinates in the classes to be in the order y,x. But the problem there would be that if the classes were to be used in another context, the y,x format would mess things up for them.
-2. We could just take the user input, reverse it to match the "x,y" format and go from there, keeping all coordinate values in the classes as "x,y". The user interface would stay the same, and the game would go on.
 
-The solution will be #2. 
+1. We could just consider all coordinates in the classes to be in the order y,x. But the problem there would be that if the classes were to be used in another context, the y,x format would mess things up for them.
+
+2. We could just take the user input, reverse it to match the "x,y" format and go from there, keeping all coordinate values in the classes as "x,y". The one problem is printing the gameboard so it displays rows and cols correctly, while still swapping x,y in the background for functionality.
+

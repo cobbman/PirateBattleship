@@ -66,6 +66,7 @@ for num in range(numberOfBoats):
 
 ######################################################
 #         Now we are ready to play the game!
+# THIS WHOLE THING NEEDS A FIXIN!
 ######################################################
 
 moveResult = '' # tells the user if it is a hit or not
@@ -78,10 +79,12 @@ def checkMoveAgainstBoats(xCord, yCord):
     for boat in boatList:
         if (xCord,yCord) in boat.getCoordinates():
             boat.isHit(xCord,yCord)
+            # I'd like to update the boat class to run this if statement instead. 
+            # i.e the boat object will be sent coordinates and returns true if hit or false if miss.
             board.updateHit(xCord,yCord)
 
             # after hitting the boat, check to see if it is sunk
-            if boat.isSunk() == True:
+            if boat.isSunk():
                 numberOfBoats -= 1
                 print("Ye SUNK a ship!!!")
 
@@ -90,6 +93,13 @@ def checkMoveAgainstBoats(xCord, yCord):
     else:
         board.updateMiss(ns,ew)
         moveResult = "oooooooooo Miss ooooooooooooooo"
+
+def endOfGame():
+    board.draw()    
+    print("YOU WIN! Ye are a true Pirate Capt'n", player1.getName()) 
+    makeRoom()
+
+
 
 
 while numberOfBoats > 0:
@@ -100,11 +110,11 @@ while numberOfBoats > 0:
     print('Boats Left:', numberOfBoats)
     move = ""
 
-    # check the move and validate it
+    # check the move and validate it, obviously needs some regex
     while len(move) != 2:
-        move = raw_input("Arr, make yer move Capt'n " + player1.get_Name() + "! (example: C4) => ")
+        move = getPlayerMove()
 
-    # convert move to int
+    # convert move to int so we can easily pass it around
     ns = int(coordinateReference[move[0].upper()])
     ew = int(move[1])
 
@@ -117,11 +127,7 @@ while numberOfBoats > 0:
     for boat in boatList:
         print(boat.getCoordinates())
 
-board.draw()    
 
-print("YOU WIN! Ye are a true Pirate Capt'n", player1.getName()) 
-
-makeRoom()
 
 
 """

@@ -5,6 +5,7 @@ class Boat:
     
     def __init__(self, boatLength=3, boardSize=10):
         self.name = ''
+        self.type = ''
         self.length = boatLength
         self.matrixLimit = boardSize
         self.coordinates = {} # declare and empty dict used for the boat coordinates later on

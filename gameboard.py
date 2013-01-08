@@ -25,15 +25,17 @@ class GameBoard:
                     count = count + 1
         return count
 
-    def updateHit(self, row, col, hitMark='x'):
+    def updateHit(self, col, row, hitMark='x'):
         if self.grid[row][col] != self.mark:
+            print("You already tried that, try something else.")
             return False # Already been played
         else:
             self.grid[row][col] = hitMark
             return True
             
-    def updateMiss(self, row, col, missMark='o'):
+    def updateMiss(self, col, row, missMark='o'):
         if self.grid[row][col] != self.mark:
+            print("You already tried that, try something else.")
             return False # Already been played
         else:
             self.grid[row][col] = missMark

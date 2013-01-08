@@ -1,4 +1,4 @@
-def hitScreen():
+def displayHit():
 	print("""                               
 		     #####    ##                 
 		  ######  /  #### / #            
@@ -19,7 +19,7 @@ def hitScreen():
 		 ##                              
     """) 
 
-def missScreen():
+def displayMiss():
 	print("""
 	                                                   
 		     #####   ##    ##                              
