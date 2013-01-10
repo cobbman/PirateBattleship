@@ -31,9 +31,10 @@ def makeRoom():
         print()
 
 moveResult = '' # tells the user if it is a hit or not
+numberOfBoats = 0
 
 def getPlayerMove():
-    return raw_input("Arr, Capt'n", player1.getName(), "! Make yer next move!", player1.getNumberOfMoves(), "moves so far => ")
+    return raw_input("Arr, Capt'n " + player1.getName() + "! Make yer next move! => ")
 
 def checkMoveAgainstBoats(xCoord, yCoord):
     # cycle through the boats and check to see if move is a hit or miss
@@ -43,10 +44,9 @@ def checkMoveAgainstBoats(xCoord, yCoord):
             board.updateHit(xCoord,yCoord)
             print("************ HIT **************")
 
-            # after hitting the boat, check to see if it is sunk
             if boat.isSunk():
-                numberOfBoats -= 1
-                print("Ye SUNK a ship!!!")
+                numberOfBoats = numberOfBoats - 1
+                print(" ^^^^^^^^^^^^ Ye SUNK a ship!!! ^^^^^^^^^^^^^^")
         else:
             board.updateMiss(xCoord,yCoord)
             print("--------------- MISS ---------------")
@@ -54,7 +54,10 @@ def checkMoveAgainstBoats(xCoord, yCoord):
 def endOfGame():
     makeRoom()
     print("YOU WIN! Ye are a true Pirate Capt'n", player1.getName()) 
-    board.draw()    
+    board.draw()  
+    print("It took your sorry hide ", player1.getNumberOfMoves(), "moves to win.") 
+    hitRatio = len(boatList) * 3 / player1.getNumberOfMoves()
+    print("Your accuracy is", hitRatio) 
     print("You sunk these boats:")
     for boat in boatList:
         print( "The", boat.type, "at", boat.getCoordinates() )
@@ -107,13 +110,16 @@ for num in range(numberOfBoats):
 while numberOfBoats > 0:
     #clearScreen()
     board.draw()
-    
     newMove = getPlayerMove()
-    # convert move to int so we can easily pass it around
-    yCoord = int(coordinateReference[newMove[0].upper()])
-    xCoord = int(newMove[1])
+    xCoord = int(coordinateReference[newMove[0].upper()])
+    yCoord = int(newMove[1])
+    while board.hasAlreadyBeenPlayed(xCoord,yCoord):
+        print("Ye scallywag! Ye have already made that move! Try another!")
+        newMove = getPlayerMove()
+        xCoord = int(coordinateReference[newMove[0].upper()])
+        yCoord = int(newMove[1])
 
-    checkMoveAgainstBoats(xCoord,yCoord)
+    checkMoveAgainstBoats(xCoord,yCoord) # tells the user if HIT or MISS and updates board and boats accordingly
 
     player1.updateNumberOfMoves()
     

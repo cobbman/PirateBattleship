@@ -47,7 +47,7 @@ class Boat:
     
     def isHit(self, xCoord, yCoord):
         """ Returns True if coordinates given are found in the boat. Returns False if miss. """ 
-        return (xCoord,yCoord) in self.coordinates:
+        return (xCoord,yCoord) in self.coordinates
 
     def updateHit(self, xCoord, yCoord):
         """ Update the boat with a hitMark at the given coordinates """
