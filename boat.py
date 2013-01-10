@@ -5,30 +5,29 @@ class Boat:
     
     def __init__(self, boatLength=3, boardSize=10):
         self.name = ''
-        self.type = ''
         self.length = boatLength
+        self.type = ''
         self.matrixLimit = boardSize
-        self.coordinates = {} # declare and empty dict used for the boat coordinates later on
+        self.coordinates = {} # coordinates will relate to boat's hit or miss status
         self.hitMark  = 'x'
         self.missMark = 'o'
 
+        # set the boat type based on boat length
+        boatTypes = { 2:"Sloop", 3:"Brigantine", 4:"Warship", 5:"Squarerigger" }
+        if self.length:
+            self.type = boatTypes[self.length]
 
-        boatDirection = randint(0,1) # random direction the boat will be facing. 0 is vert, 1 is horiz
-        # Creating the boat coordinates now based on what direction it's facing.
-        # x counts to the right, y counts down (i.e. on a graph, we're in Q4) 
-        # The keys will be tuples of the coordinates; default values are set to the missMark
+        ### SET THE BOAT COORDINATES ###
+        boatDirection = randint(0,1) # randomly choose the boat direction. 0 is vertical and 1 is horizontal
 
-        if boatDirection == 0: # if direction is verticle (0) add to the y coordinates
-            # randomly choose the starting point
+        if boatDirection == 0: # if direction is vertical (0) add to the y coordinates
             x = randint(0, self.matrixLimit - 1)
             y = randint(0, self.matrixLimit - self.length) # use self.length so it won't run off the board
             for i in range(self.length):
                 self.coordinates[(x,y)] = self.missMark
                 y = y + 1
-
              
         if boatDirection == 1: # if direction is horizontal (1) add to the x coordinates
-            # randomly choose the starting point
             x = randint(0, self.matrixLimit - self.length) # use self.length so it won't run off the board
             y = randint(0, self.matrixLimit - 1)
             for i in range(self.length):
@@ -37,43 +36,33 @@ class Boat:
     
     def getCoordinates(self):
         return self.coordinates
-    
-    def isHit(self, ns, ew):
-        #returns true and updates boat value if coordinates given is a hit, false if miss or coordinate already played
-        if (ns,ew) not in self.coordinates:
-            return False
-        elif self.coordinates[(ns,ew)] == self.hitMark:
-            return False
-        else:
-            self.coordinates[(ns,ew)] = self.hitMark
-            return True
-        
-    def isSunk(self):
-        #returns true if the boat is sunk (all coordinates have been hit)
-        return not (self.missMark in self.coordinates.values())
-    
-    def numberMissed(self):
-        # returns how manns coords have not been hit nset
-        count = 0
-        for key in self.coordinates:
-            if self.coordinates[key] == self.missMark:
-                count = count + 1
-        return count
 
-    def numberOfHits(self):
-        # returns how many hits the boat has taken
+    def getNumberOfHits(self):
+        """ Returns how many hits the boat has taken """
         count = 0
         for key in self.coordinates:
             if self.coordinates[key] == self.hitMark:
                 count = count + 1
         return count
+    
+    def isHit(self, xCoord, yCoord):
+        """ Returns True if coordinates given are found in the boat. Returns False if miss. """ 
+        return (xCoord,yCoord) in self.coordinates:
 
-""" FOR TESTING PURPOSES """
-#boat1 = Boat(3)
-#print(boat1.getCoordinates())
-#boat2 = Boat(4)
-#print(boat2.getCoordinates())
-#boat3 = Boat(5)
-#print(boat3.getCoordinates())
+    def updateHit(self, xCoord, yCoord):
+        """ Update the boat with a hitMark at the given coordinates """
+        self.coordinates[(xCoord,yCoord)] = self.hitMark
+        
+    def isSunk(self):
+        """ Returns true if the boat is sunk (all coordinates have been hit) """
+        return not (self.missMark in self.coordinates.values())
+    
+    def numberMissed(self):
+        """ Returns how many coordinates have not been hit yet """
+        count = 0
+        for key in self.coordinates:
+            if self.coordinates[key] == self.missMark:
+                count = count + 1
+        return count
 
 

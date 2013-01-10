@@ -1,26 +1,26 @@
 class Player:
-    """ Creates a Player object. Good for future implementations when this game will become multiplayer. """
+    """ Creates a Player object. """
 
-    def __init__(self, iName):
-        self.name = iName
+    def __init__(self, playerName):
+        self.name = playerName
         self.score = 0
         self.numberOfMoves = 0
     
     # get functions
 
-    def get_Name(self):
+    def getName(self):
         return self.name
 
-    def get_Score(self):
+    def getScore(self):
         return self.score
 
-    def get_numberOfMoves(self):
+    def getNumberOfMoves(self):
         return self.numberOfMoves
 
     # update functions
 
-    def update_Score(self, points):
+    def updateScore(self, points):
         self.score = self.score + points
 
-    def update_numberOfMoves(self, moves = 1):
+    def updateNumberOfMoves(self, moves = 1):
         self.numberOfMoves += moves
