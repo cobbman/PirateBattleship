@@ -2,7 +2,10 @@ from __future__ import print_function # makes the print() function compatible wi
 import string # lets us do some formatting for the draw method
 
 class GameBoard:
-    """ Create a square grid as a list of lists. Default is 10x10 with '.' as initial values. """
+    """ 
+    Create a square grid as a list of lists. Default is 10x10 with '.' as initial values. 
+    NOTE: Because the board stores values in the order of row then column, the x and y coordinates are switched to match.
+    """
     
     def __init__(self, boardSize=10, setMark='.'):
         self.size = boardSize
@@ -13,21 +16,21 @@ class GameBoard:
 
     def hasAlreadyBeenPlayed(self, xCoord, yCoord):
         # returns True if the user has already made a move at (xCoord,yCoord)
-        return not self.grid[xCoord][yCoord] == self.defaultMark
+        return not self.grid[yCoord][xCoord] == self.defaultMark
 
-    def get_spacesNotPlayed(self):
+    def countSpacesNotPlayed(self):
         count = 0
         for row in self.grid:
-            for col in row:
-                if self.defaultMark in col:
+            for space in row:
+                if self.defaultMark in space:
                     count = count + 1
         return count
 
     def updateHit(self, xCoord, yCoord, hitMark='x'):
-            self.grid[xCoord][yCoord] = hitMark
+            self.grid[yCoord][xCoord] = hitMark
             
     def updateMiss(self, xCoord, yCoord, missMark='o'):
-            self.grid[xCoord][yCoord] = missMark
+            self.grid[yCoord][xCoord] = missMark
             
     def draw(self): # this could be optimized more, especially since we're already using the string.format functions
         rowHead = "ABCDEFGHIJ" # will be used as a reference for the player to see
