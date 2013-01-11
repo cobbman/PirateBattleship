@@ -18,7 +18,7 @@ class Boat:
             self.type = boatTypes[self.length]
 
         ### SET THE BOAT COORDINATES ###
-        boatDirection = randint(0,1) # randomly choose the boat direction. 0 is vertical and 1 is horizontal
+        boatDirection = randint(0,1) # Set boat direction: 0 is vertical and 1 is horizontal
 
         if boatDirection == 0: # if direction is vertical (0) add to the y coordinates
             x = randint(0, self.matrixLimit - 1)
@@ -36,14 +36,6 @@ class Boat:
     
     def getCoordinates(self):
         return self.coordinates
-
-    def getNumberOfHits(self):
-        """ Returns how many hits the boat has taken """
-        count = 0
-        for key in self.coordinates:
-            if self.coordinates[key] == self.hitMark:
-                count = count + 1
-        return count
     
     def isHit(self, xCoord, yCoord):
         """ Returns True if coordinates given are found in the boat. Returns False if miss. """ 
@@ -57,12 +49,31 @@ class Boat:
         """ Returns true if the boat is sunk (all coordinates have been hit) """
         return not (self.missMark in self.coordinates.values())
     
-    def numberMissed(self):
+    def getNumberOfHits(self):
+        """ Returns how many hits the boat has taken """
+        count = 0
+        for key in self.coordinates:
+            if self.coordinates[key] == self.hitMark:
+                count = count + 1
+        return count
+
+    def getNumberMissed(self):
         """ Returns how many coordinates have not been hit yet """
         count = 0
         for key in self.coordinates:
             if self.coordinates[key] == self.missMark:
                 count = count + 1
         return count
+
+    def checkIfBoatsOverlap(self, boatList):
+        """ (list of obj) -> bool
+        Returns True if self.coordinates overlaps any coordinate of boat in boatList """
+        for eachBoat in boatList:
+            boatCheck = set( eachBoat.getCoordinates() ) & set( self.coordinates )
+            if len( boatCheck ) > 0:
+                # for testing purposes
+                print("Our new boat", self.coordinates.keys(), "overlaps a boat in our list at:", boatCheck)
+                return True
+        return False
 
 
