@@ -1,15 +1,14 @@
 class Player:
     """ Creates a Player object. """
 
-    def __init__(self, playerName):
+    def __init__(self, playerName=''):
         self.name = playerName
         self.score = 0
         self.numberOfMoves = 0
-    
-    # get functions
 
-    def getName(self):
-        return self.name
+
+    def setName(self, newName):
+        self.name = newName
 
     def getScore(self):
         return self.score
@@ -17,10 +16,8 @@ class Player:
     def getNumberOfMoves(self):
         return self.numberOfMoves
 
-    # update functions
-
     def updateScore(self, points):
         self.score = self.score + points
 
-    def updateNumberOfMoves(self, moves = 1):
+    def addNumberOfMoves(self, moves = 1):
         self.numberOfMoves += moves
