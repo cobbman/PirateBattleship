@@ -75,5 +75,3 @@ class Boat:
                 print("Our new boat", self.coordinates.keys(), "overlaps a boat in our list at:", boatCheck)
                 return True
         return False
-
-

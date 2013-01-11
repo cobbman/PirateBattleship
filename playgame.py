@@ -3,48 +3,45 @@ import boat # the boat class that creates boat objects
 import gameboard # the gameboard class that creates the board object
 import player # a player class for players objects
 
-class pirateBattleship:
+"""
+How this will work:
+The playGame class creates a Game object which handles everything from there within the object.
+? => Should the playgame class be sent all the info it needs, or should it be allowed to ask for input first (i.e. asking the user how many boats they want in the game).
+During game play, the user sets their name, and chooses how many boats they want to play against.
+Then the user is shown the gameboard and is asked to make a move.
+That move is then parsed and checked against the list of boat objects and the gameboard is updated accordingly as a hit or miss.
+Each time the player makes a move, it is counted so that a score can be tallied in the end.
+The boats know if they've been hit, if you send coordinates to them.
+The gameboard keeps track of which locations have been played already, so the user can't play the same place twice.
+
+
+
+
+"""
+
+class playGame:
+    """ Plays the PirateBattleship game """
 
     def __init__(self):
-        return True
-
-        # set up the variables we need
-        coordinateReference = { 'A':0, 'B':1, 'C':2,'D':3, 'E':4, 'F':5, 'G':6, 'H':7, 'I':8, 'J':9 }
-        moveResult = '' # tells the user if it is a hit or not
-        numberOfBoats = 0
         
-    ########################### 
-    #     helper functions
-    ###########################
+        self.player = player.Player() # create a player object
+        self.board = gameboard.GameBoard() # create the board object!
 
-    # reference coordinates from the player to the computer
-    
+        self.boatList = []
 
-    def boatsOverlap(num, newBoat, boatList):
-        """ Checks to see if the newBoat overlaps coordinates of boats already in the boatList """
-        for eachBoat in boatList:
-            boatCheck = set( eachBoat.getCoordinates() ) & set( newBoat.getCoordinates() )
-            if len( boatCheck ) > 0:
-                print("Our new boat", num, newBoat.getCoordinates().keys(), "overlaps a boat in our list at:", boatCheck)
-                return True
-        return False
+        # reference coordinates from the player to the computer
+        self.coordinateReference = { 'A':0, 'B':1, 'C':2,'D':3, 'E':4, 'F':5, 'G':6, 'H':7, 'I':8, 'J':9 }
+        
 
-    # "clears" the screen in a primitive fashion
-    def clearScreen():
-        for i in range(50):
+
+    def clearScreen(self, lines=50): # "clears" the screen in a primitive fashion
+        for i in range(lines):
             print()
 
-    # make some room by adding spaces
-    def makeRoom():
-        for i in range(5):
-            print()
-
-    
-
-    def getPlayerMove():
+    def getPlayerMove(self):
         return raw_input("Arr, Capt'n " + player1.getName() + "! Make yer next move! => ")
 
-    def checkMoveAgainstBoats(xCoord, yCoord):
+    def checkMoveAgainstBoats(self, xCoord, yCoord, boatList):
         # cycle through the boats and check to see if move is a hit or miss
         for boat in boatList:
             if boat.isHit(xCoord,yCoord):
@@ -53,13 +50,13 @@ class pirateBattleship:
                 print("************ HIT **************")
 
                 if boat.isSunk():
-                    numberOfBoats = numberOfBoats - 1
+                    self.numberOfBoats = self.numberOfBoats - 1
                     print(" ^^^^^^^^^^^^ Ye SUNK a ship!!! ^^^^^^^^^^^^^^")
             else:
                 board.updateMiss(xCoord,yCoord)
                 print("--------------- MISS ---------------")
 
-    def endOfGame():
+    def endOfGame(self):
         makeRoom()
         print("YOU WIN! Ye are a true Pirate Capt'n", player1.getName()) 
         board.draw()  
@@ -71,42 +68,7 @@ class pirateBattleship:
             print( "The", boat.type, "at", boat.getCoordinates() )
 
 
-
-    ########################### 
-    #      introduction
-    ###########################
-
-    clearScreen()
-
-    print( "Pirate Battleship ASCII ART goes here. This game was made by Big William!" )
-    raw_input( "Press Enter to continue..." )
-
-    clearScreen()
-
-    player1 = player.Player( raw_input( "Welcome aboard Capt'n! What be yer name? " ) )
-    numberOfBoats = int( raw_input( "How many boats do ye desire to sink today? (recommend 3) " ) )
-
-
-    ###########################
-    #     create elements
-    ###########################
-
-    board = gameboard.GameBoard() # create the board!
-
-    boatList = [] # Create an empty list of boats!
-
-    # Create as many boats as was requested!
-    for num in range(numberOfBoats):
-        newBoat = boat.Boat()
-        if boatList > 0: # Check to make sure our newBoat doesn't overlap an existing boat
-            while boatsOverlap(num, newBoat, boatList):
-                newBoat = boat.Boat()
-
-        # append our new boat to the boatList
-        boatList.append(newBoat)
-
-        # for testing purposes, print the boat coordinates
-        print("Created boat", num, "at these coordinates:", newBoat.getCoordinates().keys() )
+    
 
 
     ######################################################
@@ -115,28 +77,53 @@ class pirateBattleship:
     # 
     ######################################################
 
-    while numberOfBoats > 0:
-        #clearScreen()
-        board.draw()
-        newMove = getPlayerMove()
-        yCoord = int( coordinateReference[newMove[0].upper()] )
-        xCoord = int(newMove[1])
-        while board.hasAlreadyBeenPlayed(xCoord,yCoord):
-            print("Ye scallywag! Ye have already made that move! Try another!")
+    def play(self):
+
+        # INTRODUCTION
+        print( "Pirate Battleship ASCII ART goes here. This game was made by Big William!" )
+        raw_input( "Press Enter to continue..." )
+
+        clearScreen(50)
+
+        # GET PLAYER DETAILS AND BOATLIST
+        self.player.setName( raw_input( "Welcome aboard Capt'n! What be yer name? " ) )
+        self.numberOfBoats = int( raw_input( "How many boats do ye desire to sink today? (recommend 5) " ) )
+
+        # CREATE THE LIST OF BOATS NOW THAT WE KNOW HOW MANY TO MAKE
+        for num in range(self.numberOfBoats):
+        newBoat = boat.Boat()
+        if boatList > 0: # Check to make sure our newBoat doesn't overlap an existing boat
+            while newBoat.checkIfBoatsOverlap(self.boatList):
+                newBoat = boat.Boat()
+        self.boatList.append(newBoat) # append our new boat to the boatList
+
+        # for testing purposes, print the boat coordinates
+        print("Created boat", num, "at these coordinates:", newBoat.getCoordinates().keys() )
+
+        # NOW WE'RE ACTUALLY PLAYING
+        while self.numberOfBoats > 0:
+            #clearScreen()
+            self.board.draw()
             newMove = getPlayerMove()
-            yCoord = int(coordinateReference[newMove[0].upper()])
+            yCoord = int( coordinateReference[newMove[0].upper()] )
             xCoord = int(newMove[1])
 
-        checkMoveAgainstBoats(xCoord,yCoord) # tells the user if HIT or MISS and updates board and boats accordingly
+            while board.hasAlreadyBeenPlayed(xCoord,yCoord):
+                print("Ye scallywag! Ye have already made that move! Try another!")
+                newMove = getPlayerMove()
+                yCoord = int(coordinateReference[newMove[0].upper()])
+                xCoord = int(newMove[1])
 
-        player1.updateNumberOfMoves()
-        
-        #TEST
-        print(newMove[0], "became", yCoord)
-        print(newMove[1], "became", xCoord)
-        print("Number of boats left: ", numberOfBoats)
-        for boat in boatList:
-            print(boat.getCoordinates())
+            checkMoveAgainstBoats(xCoord,yCoord) # tells the user if HIT or MISS and updates board and boats accordingly
 
-    endOfGame()
+            player1.updateNumberOfMoves()
+            
+            #TEST
+            print(newMove[0], "became", yCoord)
+            print(newMove[1], "became", xCoord)
+            print("Number of boats left: ", numberOfBoats)
+            for boat in boatList:
+                print(boat.getCoordinates())
+
+        endOfGame()
 

@@ -14,6 +14,7 @@ class GameBoard:
         ### This creates the board ###
         self.grid = [ [ self.defaultMark for row in range(self.size) ] for col in range(self.size) ] 
 
+
     def hasAlreadyBeenPlayed(self, xCoord, yCoord):
         # returns True if the user has already made a move at (xCoord,yCoord)
         return not self.grid[yCoord][xCoord] == self.defaultMark
