@@ -16,8 +16,8 @@ class Player:
     def getNumberOfMoves(self):
         return self.numberOfMoves
 
-    def updateScore(self, points):
+    def addToScore(self, points):
         self.score = self.score + points
 
-    def addNumberOfMoves(self, moves = 1):
+    def addToNumberOfMoves(self, moves = 1):
         self.numberOfMoves += moves

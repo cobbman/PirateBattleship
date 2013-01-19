@@ -65,13 +65,4 @@ class Boat:
                 count = count + 1
         return count
 
-    def checkIfBoatsOverlap(self, boatList):
-        """ (list of obj) -> bool
-        Returns True if self.coordinates overlaps any coordinate of boat in boatList """
-        for eachBoat in boatList:
-            boatCheck = set( eachBoat.getCoordinates() ) & set( self.coordinates )
-            if len( boatCheck ) > 0:
-                # for testing purposes
-                print("Our new boat", self.coordinates.keys(), "overlaps a boat in our list at:", boatCheck)
-                return True
-        return False
+    

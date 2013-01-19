@@ -21,7 +21,7 @@ AA => The playGame class will create a game object AFTER the info is gathered fr
 class Game:
     """ Plays the PirateBattleship game """
 
-    def __init__(self, iPlayers, iBoatList, iBoard):
+    def __init__(self, iPlayers, iBoard):
         
         self.player = iPlayers
 
@@ -91,7 +91,9 @@ class Game:
         for num in range(self.numberOfBoats):
         newBoat = boat.Boat()
         if boatList > 0: # Check to make sure our newBoat doesn't overlap an existing boat
-            while newBoat.checkIfBoatsOverlap(self.boatList):
+            while self.board.checkIfBoatsOverlap(newBoat, self.boatList):
+                # for testing purposes
+                print("Our new boat", newBoat.coordinates.keys(), "overlaps a boat in our list at:", self.board.boatCheck)
                 newBoat = boat.Boat()
         self.boatList.append(newBoat) # append our new boat to the boatList
 
