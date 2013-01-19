@@ -1,33 +1,33 @@
 from __future__ import print_function # makes the newer print() function compatible with older versions of python
 import boat # the boat class that creates boat objects
-import gameboard # the gameboard class that creates the board object
-import player # a player class for players objects
 
 """
 How this will work:
 The playGame class creates a Game object which handles everything from there within the object.
-? => Should the playgame class be sent all the info it needs, or should it be allowed to ask for input first (i.e. asking the user how many boats they want in the game).
 During game play, the user sets their name, and chooses how many boats they want to play against.
 Then the user is shown the gameboard and is asked to make a move.
 That move is then parsed and checked against the list of boat objects and the gameboard is updated accordingly as a hit or miss.
+The updated board is reprinted on the screen and the user is asked to move again.
 Each time the player makes a move, it is counted so that a score can be tallied in the end.
 The boats know if they've been hit, if you send coordinates to them.
 The gameboard keeps track of which locations have been played already, so the user can't play the same place twice.
 
-
+? => Should the playgame class be sent all the info it needs, or should it be allowed to ask for input first (i.e. asking the user how many boats they want in the game).
+AA => The playGame class will create a game object AFTER the info is gathered from the user about the game.
 
 
 """
 
-class playGame:
+class Game:
     """ Plays the PirateBattleship game """
 
-    def __init__(self):
+    def __init__(self, iPlayers, iBoatList, iBoard):
         
-        self.player = player.Player() # create a player object
-        self.board = gameboard.GameBoard() # create the board object!
+        self.player = iPlayers
 
-        self.boatList = []
+        self.board = iBoard
+
+        self.boatList = iBoatList
 
         # reference coordinates from the player to the computer
         self.coordinateReference = { 'A':0, 'B':1, 'C':2,'D':3, 'E':4, 'F':5, 'G':6, 'H':7, 'I':8, 'J':9 }
@@ -41,7 +41,7 @@ class playGame:
     def getPlayerMove(self):
         return raw_input("Arr, Capt'n " + player1.getName() + "! Make yer next move! => ")
 
-    def checkMoveAgainstBoats(self, xCoord, yCoord, boatList):
+    def hitsABoat(self, xCoord, yCoord, boatList):
         # cycle through the boats and check to see if move is a hit or miss
         for boat in boatList:
             if boat.isHit(xCoord,yCoord):
@@ -68,8 +68,6 @@ class playGame:
             print( "The", boat.type, "at", boat.getCoordinates() )
 
 
-    
-
 
     ######################################################
     #
@@ -77,7 +75,7 @@ class playGame:
     # 
     ######################################################
 
-    def play(self):
+    def runGame(self):
 
         # INTRODUCTION
         print( "Pirate Battleship ASCII ART goes here. This game was made by Big William!" )
