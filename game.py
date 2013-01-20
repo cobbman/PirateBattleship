@@ -40,7 +40,7 @@ class Game:
                 print()
 
         def getPlayerMove():
-            playerMove = raw_input("Yarr, Capt'n " + self.player.getName() + "! Make yer next move! => ")
+            playerMove = raw_input("Yarr, Capt'n " + self.player.name + "! Make yer next move! => ")
             self.player.addToNumberOfMoves() # count how many moves are made
             return playerMove
 
@@ -60,36 +60,35 @@ class Game:
 
             # remember the user inputs coordinates as yx, but we need it to be xy, so here we do the switch
             xMove = int(newMove[1])
-            yMove = int( coordinateReference[ newMove[0].upper() ] ) # convert letters to corresponding numbers we can use to update things with coordinates as int 
+            yMove = int( self.coordinateReference[newMove[0].upper()] ) # convert letters to corresponding numbers we can use to update things with coordinates as int 
 
             # check to be sure this move hasn't already been played, ask again if need be
-            while board.hasAlreadyBeenPlayed(xMove,yMove):
+            while self.board.hasAlreadyBeenPlayed(xMove,yMove):
                 print("Ye scallywag! Ye have already made that move! Try another!")
                 newMove = getPlayerMove()
                 xMove = int(newMove[1])
-                yMove = int( coordinateReference[ newMove[0].upper() ] )
+                yMove = int( self.coordinateReference[newMove[0].upper()] )
 
             # check to see if the move hits a boat   
-            boatHit = moveHitsABoat(xMove, yMove, self.boatList):
+            boatHit = moveHitsABoat(xMove, yMove, self.boatList)
             if boatHit:
                 boatHit.updateHit(xMove,yMove)
-                board.updateHit(xMove,yMove)
+                self.board.updateHit(xMove,yMove)
                 print("xxxxxxxxxxxxxxxxxxxxxx HIT xxxxxxxxxxxxxxxxxxxxxxxxxxxx")
                 
                 if boatHit.isSunk():
                     self.numberOfBoats = self.numberOfBoats - 1 # here's what the while loop is keeping track of
                     print(" ^^^^^^^^^^^^ Ye SUNK a ship!!! ^^^^^^^^^^^^^^")
             else:
-                board.updateMiss(xCoord,yCoord)
+                self.board.updateMiss(xMove,yMove)
                 print("ooooooooooooooooooooo MISS ooooooooooooooooooooooooooooo")
 
             self.board.draw()
             #TEST
             print("For testing:")
-            print(newMove[0], "became", yCoord)
-            print(newMove[1], "became", xCoord)
+            print("Player move translates to (" + xMove + "," + yMove + ")")
             print("Number of boats left: ", self.numberOfBoats)
-            for boat in boatList:
+            for boat in self.boatList:
                 print( boat.getCoordinates() )
 
         return True # game completed successfully
@@ -99,13 +98,13 @@ class Game:
         totalMoves = self.player.getNumberOfMoves()
         hitRatio = len(self.boatList) / totalMoves
 
-        board.draw()
+        self.board.draw()
         print("YOU WIN! Ye are a true Pirate Capt'n", self.player.getName()) 
         print("It took your sorry hide ", totalMoves, "moves to win.") 
         
         print("Your accuracy is:", hitRatio) 
         print("You sunk", len(self.boatList), "boats!!!")
         print("Here's the types of boats you sunk: ")
-        for boat in boatList:
+        for boat in self.boatList:
             print( "The", boat.type, " size", boat.getBoatSize(), "located at", boat.getCoordinates() )
 

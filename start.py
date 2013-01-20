@@ -14,9 +14,9 @@ def clearScreen(lines=50): #clear the screen
 		print()
 
 def createBoatList(numBoats): # Create the list of boats
-    """ (int -> list of dict) Returns a list of boats as dictionaries """
+	""" (int -> list of dict) Returns a list of boats as dictionaries """
 
-    # Having trouble deciding where this function/method should go. It doesn't quite fit in the board or boat object as a method the way I would like it to. I finally decided it belonged here, where the broader prespective is. This might change again as I tune things.
+	# Having trouble deciding where this function/method should go. It doesn't quite fit in the board or boat object as a method the way I would like it to. I finally decided it belonged here, where the broader prespective is. This might change again as I tune things.
 	def checkIfBoatsOverlap(boat, boatList): 
 		""" (obj, list of obj) -> bool
 		Returns True if boat.getCoordinates() overlaps any coordinate of boat in boatList """
@@ -29,18 +29,18 @@ def createBoatList(numBoats): # Create the list of boats
 				return True # the boat overlaps one already in the list
 		return False # the boat does not overlap, it's all good!
     
-    boatList = []
-    # Count through and create the boats
-    for num in range(numBoats):
-        newBoat = boat.Boat()
-        if len(boatList) > 0: # Check to make sure our newBoat doesn't overlap an existing boat
-            while checkIfBoatsOverlap(newBoat, boatList):
-                newBoat = boat.Boat()
-        # for testing purposes, print the boat coordinates
-        print("Created boat", num, "at these coordinates:", newBoat.getCoordinates().keys() )
-        boatList.append(newBoat) # append our new boat to the boatList
+	boatList = []
+	# Count through and create the boats
+	for num in range(numBoats):
+		newBoat = boat.Boat()
+		if len(boatList) > 0: # Check to make sure our newBoat doesn't overlap an existing boat
+			while checkIfBoatsOverlap(newBoat, boatList):
+				newBoat = boat.Boat()
+		# for testing purposes, print the boat coordinates
+		print("Created boat", num, "at these coordinates:", newBoat.getCoordinates().keys() )
+		boatList.append(newBoat) # append our new boat to the boatList
     
-    return boatList
+	return boatList
 
 
 
@@ -54,7 +54,7 @@ raw_input( "Press Enter to continue..." )
 clearScreen()
 
 getName = raw_input( "Welcome aboard Capt'n! What be yer name? " )
-numberOfBoats = int( raw_input( "Yarr! Captain", getName, "! How many boats do ye desire to sink today? (recommend 5) " ) )
+numberOfBoats = int( raw_input( "Yarr Cap'n " + getName + ", how many boats do ye desire to sink today? (recommend 5) " ) )
 
 listOfBoats = createBoatList(numberOfBoats)
 player = player.Player(playerName=getName) # create the player object for 1 player (options: playerName = '')

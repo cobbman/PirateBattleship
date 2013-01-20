@@ -1,4 +1,4 @@
-from __future__ import print_function # makes the print() function compatible with older versions of python
+from __future__ import print_function # lets us use the newer print function on older versions of python
 import string # lets us do some formatting for the draw method
 
 class GameBoard:
