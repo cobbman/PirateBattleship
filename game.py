@@ -88,12 +88,14 @@ class Game:
             self.board.draw()
             
             #TEST
+            """
             print("For testing:")
             print("Number of moves:", self.player.getNumberOfMoves() )
             print("Player move translates to (" + str(xMove) + ", " + str(yMove) + ")")
             print("Number of boats left: ", self.numberOfBoatsLeft)
             for boat in self.boatList:
                 print( boat.getCoordinates() )
+            """
 
         return True # game completed successfully
 
@@ -108,7 +110,6 @@ class Game:
 
         hitRatio = 100 * ( float(totalBoatSpaces) / float(totalMoves) )
 
-        self.board.draw()
         print("YOU WIN! Ye are a true Pirate Capt'n", self.player.name) 
         print("It took your sorry hide", totalMoves, "moves to win.") 
         
