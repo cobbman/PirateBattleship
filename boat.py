@@ -36,6 +36,9 @@ class Boat:
     
     def getCoordinates(self):
         return self.coordinates
+
+    def getBoatSize(self):
+        return self.length 
     
     def isHit(self, xCoord, yCoord):
         """ Returns True if coordinates given are found in the boat. Returns False if miss. """ 
@@ -64,5 +67,3 @@ class Boat:
             if self.coordinates[key] == self.missMark:
                 count = count + 1
         return count
-
-    
