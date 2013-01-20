@@ -17,6 +17,7 @@ To Do:
 - Add visual ASCII when boat is hit or miss to make it more fun (overall user experience needs improving)
 - validate inputs (regex), so if user makes an invalid move it won't break
 - add feature to create boats of different sizes
+- game.py line 119: when the boat coordinates are printed, they should be printed as the user sees them. i.e. 'J5' instead of (5,9)
 
 
 Fixed:

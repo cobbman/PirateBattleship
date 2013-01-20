@@ -88,14 +88,14 @@ class Game:
             self.board.draw()
             
             #TEST
-            """
-            print("For testing:")
-            print("Number of moves:", self.player.getNumberOfMoves() )
-            print("Player move translates to (" + str(xMove) + ", " + str(yMove) + ")")
+            
+            # print("For testing:")
+            # print("Number of moves:", self.player.getNumberOfMoves() )
+            # print("Player move translates to (" + str(xMove) + ", " + str(yMove) + ")")
+            #for boat in self.boatList:
+            #    print( boat.getCoordinates() )
+
             print("Number of boats left: ", self.numberOfBoatsLeft)
-            for boat in self.boatList:
-                print( boat.getCoordinates() )
-            """
 
         return True # game completed successfully
 
@@ -109,13 +109,12 @@ class Game:
             totalBoatSpaces += boat.getBoatSize()
 
         hitRatio = 100 * ( float(totalBoatSpaces) / float(totalMoves) )
-
+        print()
         print("YOU WIN! Ye are a true Pirate Capt'n", self.player.name) 
         print("It took your sorry hide", totalMoves, "moves to win.") 
-        
-        print("Your accuracy is:", "%.2f" % hitRatio, "percent!") 
         print("You sunk", self.numberOfBoats, "boats!!!")
+        print("Your accuracy is:", "%.2f" % hitRatio, "percent!") 
         print("Here's the types of boats you sunk: ")
         for boat in self.boatList:
-            print( "The", boat.type, ", size", boat.getBoatSize(), ", located at", boat.getCoordinates() )
+            print( "The" + boat.type + ", size " + str( boat.getBoatSize() ) + ". Located at " + str( boat.getCoordinates().keys() ) )
 

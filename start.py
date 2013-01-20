@@ -25,7 +25,7 @@ def createBoatList(numBoats): # Create the list of boats
 			boatCheck = set( eachBoat.getCoordinates() ) & set( boat.getCoordinates() )
 			if len(boatCheck) > 0:
 				# for testing purposes
-				print("Our new boat", boat.getCoordinates().keys(), "overlaps a boat in our list at:", boatCheck)
+				#print("Our new boat", boat.getCoordinates().keys(), "overlaps a boat in our list at:", boatCheck)
 				return True # the boat overlaps one already in the list
 		return False # the boat does not overlap, it's all good!
     
@@ -37,7 +37,7 @@ def createBoatList(numBoats): # Create the list of boats
 			while checkIfBoatsOverlap(newBoat, boatList):
 				newBoat = boat.Boat()
 		# for testing purposes, print the boat coordinates
-		print("Created boat", num, "at these coordinates:", newBoat.getCoordinates().keys() )
+		#print("Created boat", num, "at these coordinates:", newBoat.getCoordinates().keys() )
 		boatList.append(newBoat) # append our new boat to the boatList
     
 	return boatList
@@ -49,12 +49,21 @@ def createBoatList(numBoats): # Create the list of boats
 clearScreen()
 
 print ( "Pirate Battleship ASCII ART goes here. This game was made by Big William!" )
+print ( "This game is still in production, so things aren't all finished yet." )
+print ( "Hopefully that won't be too annoying. You can always change some code if you like :)")
+print ( "If you have any comments drop me a line: hello@bigwilliam.com")
+print ( "Have Fun!!!")
 raw_input( "Press Enter to continue..." )
 
 clearScreen()
 
-getName = raw_input( "Welcome aboard Capt'n! What be yer name? " )
-numberOfBoats = int( raw_input( "Yarr Cap'n " + getName + ", how many boats do ye desire to sink today? (recommend 5) " ) )
+getName = ''
+while getName == '':
+	getName = raw_input( "Welcome aboard Capt'n! What be yer name? " )
+
+numberOfBoats = 0
+while numberOfBoats < 1 or numberOfBoats > 25:
+	numberOfBoats = int( raw_input( "Yarr Cap'n " + getName + ", how many boats do ye desire to sink today? (recommend 5-15. The more boats the easier, but don't go over 25) " ) )
 
 listOfBoats = createBoatList(numberOfBoats)
 player = player.Player(playerName=getName) # create the player object for 1 player (options: playerName = '')
