@@ -64,6 +64,7 @@ class Game:
 
             # check to be sure this move hasn't already been played, ask again if need be
             while self.board.hasAlreadyBeenPlayed(xMove,yMove):
+                self.player.addToNumberOfMoves(moves = -1) # don't count the move because it was already played
                 print("Ye scallywag! Ye have already made that move! Try another!")
                 newMove = getPlayerMove()
                 xMove = int(newMove[1])
@@ -86,7 +87,8 @@ class Game:
             self.board.draw()
             #TEST
             print("For testing:")
-            print("Player move translates to (" + xMove + "," + yMove + ")")
+            print("Number of moves:", self.player.getNumberOfMoves() )
+            print("Player move translates to (" + str(xMove) + ", " + str(yMove) + ")")
             print("Number of boats left: ", self.numberOfBoats)
             for boat in self.boatList:
                 print( boat.getCoordinates() )
@@ -96,13 +98,13 @@ class Game:
     def endGame(self):
 
         totalMoves = self.player.getNumberOfMoves()
-        hitRatio = len(self.boatList) / totalMoves
+        hitRatio = 100 * ( len(self.boatList) * 3 / totalMoves ) # in the future will have to change the number 3 to total spaces of all boats
 
         self.board.draw()
-        print("YOU WIN! Ye are a true Pirate Capt'n", self.player.getName()) 
-        print("It took your sorry hide ", totalMoves, "moves to win.") 
+        print("YOU WIN! Ye are a true Pirate Capt'n", self.player.name) 
+        print("It took your sorry hide", totalMoves, "moves to win.") 
         
-        print("Your accuracy is:", hitRatio) 
+        print("Your accuracy is:", hitRatio, "percent!") 
         print("You sunk", len(self.boatList), "boats!!!")
         print("Here's the types of boats you sunk: ")
         for boat in self.boatList:
