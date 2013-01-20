@@ -26,7 +26,7 @@ class Game:
         self.player = iPlayers
         self.board = iBoard
         self.boatList = iListOfBoats
-        self.numberOfBoats = len(self.boatList)
+        self.numberOfBoatsLeft, self.numberOfBoats = len(self.boatList), len(self.boatList)
 
         # reference coordinates from the player to the computer
         self.coordinateReference = { 'A':0, 'B':1, 'C':2,'D':3, 'E':4, 'F':5, 'G':6, 'H':7, 'I':8, 'J':9 }
@@ -54,7 +54,7 @@ class Game:
 
         # NOW WE'RE ACTUALLY PLAYING
         self.board.draw()
-        while self.numberOfBoats > 0:
+        while self.numberOfBoatsLeft > 0:
             
             newMove = getPlayerMove()
 
@@ -78,18 +78,20 @@ class Game:
                 print("xxxxxxxxxxxxxxxxxxxxxx HIT xxxxxxxxxxxxxxxxxxxxxxxxxxxx")
                 
                 if boatHit.isSunk():
-                    self.numberOfBoats = self.numberOfBoats - 1 # here's what the while loop is keeping track of
+                    self.numberOfBoatsLeft = self.numberOfBoatsLeft - 1 # here's what the while loop is keeping track of
                     print(" ^^^^^^^^^^^^ Ye SUNK a ship!!! ^^^^^^^^^^^^^^")
             else:
                 self.board.updateMiss(xMove,yMove)
                 print("ooooooooooooooooooooo MISS ooooooooooooooooooooooooooooo")
 
+            print()
             self.board.draw()
+            
             #TEST
             print("For testing:")
             print("Number of moves:", self.player.getNumberOfMoves() )
             print("Player move translates to (" + str(xMove) + ", " + str(yMove) + ")")
-            print("Number of boats left: ", self.numberOfBoats)
+            print("Number of boats left: ", self.numberOfBoatsLeft)
             for boat in self.boatList:
                 print( boat.getCoordinates() )
 
@@ -97,16 +99,22 @@ class Game:
 
     def endGame(self):
 
-        totalMoves = self.player.getNumberOfMoves()
-        hitRatio = 100 * ( len(self.boatList) * 3 / totalMoves ) # in the future will have to change the number 3 to total spaces of all boats
+        totalMoves = int( self.player.getNumberOfMoves() )
+
+        # calculate total spaces the boats occupied
+        totalBoatSpaces = 0
+        for boat in self.boatList:
+            totalBoatSpaces += boat.getBoatSize()
+
+        hitRatio = 100 * ( float(totalBoatSpaces) / float(totalMoves) )
 
         self.board.draw()
         print("YOU WIN! Ye are a true Pirate Capt'n", self.player.name) 
         print("It took your sorry hide", totalMoves, "moves to win.") 
         
-        print("Your accuracy is:", hitRatio, "percent!") 
-        print("You sunk", len(self.boatList), "boats!!!")
+        print("Your accuracy is:", "%.2f" % hitRatio, "percent!") 
+        print("You sunk", self.numberOfBoats, "boats!!!")
         print("Here's the types of boats you sunk: ")
         for boat in self.boatList:
-            print( "The", boat.type, " size", boat.getBoatSize(), "located at", boat.getCoordinates() )
+            print( "The", boat.type, ", size", boat.getBoatSize(), ", located at", boat.getCoordinates() )
 
