@@ -4,8 +4,22 @@ import gameboard
 import boat
 import game 
 
+
 """
-Gathers information and initiates the game object.
+How this will work:
+start.py gathers information such as player name and how many boats they want to sink. Then creates a Game object which runs the game.
+
+Then the user is shown the gameboard and is asked to make a move.
+That move is then parsed and checked against the list of boat objects and the gameboard is updated accordingly as a hit or miss.
+The updated board is reprinted on the screen and the user is asked to move again.
+Each time the player makes a move, it is counted so that a score can be tallied in the end.
+The boats know whether they've been hit, if you send coordinates to them.
+The gameboard keeps track of which locations have been played already, so the user can't play the same place twice.
+
+* NOTE: the boat coordinates are separate from the gameboard coordinates, but both get updated at the same time.
+
+* NOTE: the gameboard is only for the user to see. As far as the game is concerned, the board only keeps track of which coordinates have been played. The boat coordinates are where the game keeps track of hits/misses.
+
 
 """
 
@@ -13,7 +27,7 @@ def clearScreen(lines=50): #clear the screen
 	for i in range(50):
 		print()
 
-def createBoatList(numBoats): # Create the list of boats
+def createBoatList(numBoats): # Creates the list of boats
 	""" (int -> list of dict) Returns a list of boats as dictionaries """
 
 	# Having trouble deciding where this function/method should go. It doesn't quite fit in the board or boat object as a method the way I would like it to. I finally decided it belonged here, where the broader prespective is. This might change again as I tune things.
