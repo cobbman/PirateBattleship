@@ -99,8 +99,8 @@ class Game:
         print()
         print("YOU WIN! Ye are a true Pirate Capt'n", self.player.name) 
         print("It took your sorry hide", totalMoves, "moves to win.") 
-        print("You sunk", self.numberOfBoats, "boats!!!")
-        print("Your accuracy is:", "%.2f" % hitRatio, "percent!") 
+        print("You sunk", self.numberOfBoats, "boats, which had", totalBoatSpaces, "spaces!!!")
+        print("Your HIT accuracy is:", "%.2f" % hitRatio, "percent!") 
         print("Here's the types of boats you sunk: ")
         for boat in self.boatList:
             print( "The" + boat.type + ", size " + str( boat.getBoatSize() ) + ". Located at " + str( boat.getCoordinates().keys() ) )
