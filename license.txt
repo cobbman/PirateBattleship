@@ -1,1 +1,2 @@
 Most likely gonna be opensource and free. 
+MIT license or something similar

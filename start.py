@@ -24,7 +24,7 @@ The gameboard keeps track of which locations have been played already, so the us
 """
 
 def clearScreen(lines=50): #clear the screen
-	for i in range(50):
+	for i in range(lines):
 		print()
 
 def createBoatList(numBoats): # Creates the list of boats

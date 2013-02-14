@@ -1,6 +1,8 @@
 readme.txt
 
-This game is not finished and still in production!!!
+This game finished, so you can play it! But, it still needs a few things done
+to make the game play better. 
+
 Comments or questions can be emailed to me: hello@bigwilliam.com
 
 If you want to try it for what I have so far, run in your terminal: python start.py
@@ -17,7 +19,7 @@ To Do:
 - Add visual ASCII when boat is hit or miss to make it more fun (overall user experience needs improving)
 - validate inputs (regex), so if user makes an invalid move it won't break
 - add feature to create boats of different sizes
-- game.py line 119: when the boat coordinates are printed, they should be printed as the user sees them. i.e. 'J5' instead of (5,9)
+- game.py endGame() line 109: when the boat coordinates are printed, they should be printed as the user sees them. i.e. 'J5' instead of (5,9)
 
 
 Fixed:
