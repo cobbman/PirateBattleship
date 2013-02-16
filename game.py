@@ -1,5 +1,6 @@
 from __future__ import print_function # makes the newer print() function compatible with older versions of python
-import displayArt
+import re # regex 
+import displayArt # display art file
 
 class Game:
     """ Plays the PirateBattleship game. The game itself is an object that takes these objects as arguments: player, board, and boatList """
@@ -49,8 +50,11 @@ class Game:
             xMove = int(newMove[1]) # [1] is the 2nd element of newMove
             yMove = int( self.coordinateReference[newMove[0].upper()] ) # [0] is the first element of newMove. convert letters to corresponding numbers we can use to update things with coordinates as int 
 
+            # set up regex match
+            validMove = re.compile("[a-j][0-9]")
+
             # check to be sure this move hasn't already been played, ask again if need be
-            while self.board.hasAlreadyBeenPlayed(xMove,yMove):
+            while self.board.hasAlreadyBeenPlayed(xMove,yMove) or len(newMove) > 2 or not validMove.match(newMove):
                 self.player.addToNumberOfMoves(moves = -1) # don't count the move because it was already played
                 print("Ye scallywag! Ye have already made that move! Try another!")
                 newMove = getPlayerMove()

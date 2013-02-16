@@ -16,13 +16,13 @@ player.py - creates a player. Right now the game is only 1 player
 
 
 To Do:
-- Add visual ASCII when boat is hit or miss to make it more fun (overall user experience needs improving)
 - validate inputs (regex), so if user makes an invalid move it won't break
 - add feature to create boats of different sizes
 - game.py endGame() line 109: when the boat coordinates are printed, they should be printed as the user sees them. i.e. 'J5' instead of (5,9)
 
 
 Fixed:
+- DONE: Add visual ASCII when boat is hit or miss to make it more fun (overall user experience needs improving)
 - DONE AND RENAMED: clean up playgame.py - code there is messy
 - DONE: AND SIMPLIFIED: some of the boats have negative coordinates… need to fix (boat.py)
 - DONE: Update board draw method so it shows coordinate headers that the user can see
