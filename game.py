@@ -1,4 +1,5 @@
 from __future__ import print_function # makes the newer print() function compatible with older versions of python
+import displayArt
 
 class Game:
     """ Plays the PirateBattleship game. The game itself is an object that takes these objects as arguments: player, board, and boatList """
@@ -59,17 +60,23 @@ class Game:
 
             # check to see if the move hits a boat   
             boatHit = moveHitsABoat(xMove, yMove, self.boatList) 
+
             if boatHit: # the move was a HIT
                 boatHit.updateHit(xMove,yMove) # tell the boat to update coordinates with a hitMark
                 self.board.updateHit(xMove,yMove) # tell the board to update coordinates with a hitMark
-                print("xxxxxxxxxxxxxxxxxxxxxx HIT xxxxxxxxxxxxxxxxxxxxxxxxxxxx") # tell the user it was a HIT
-                
+                #print("xxxxxxxxxxxxxxxxxxxxxx HIT xxxxxxxxxxxxxxxxxxxxxxxxxxxx") # tell the user it was a HIT
+                displayArt.Hit()
+
                 if boatHit.isSunk():
                     self.numberOfBoatsLeft = self.numberOfBoatsLeft - 1 # here's what the while loop is keeping track of
-                    print(" ^^^^^^^^^^^^ Ye SUNK a ship!!! ^^^^^^^^^^^^^^")
+                    #print(" ^^^^^^^^^^^^ Ye SUNK a ship!!! ^^^^^^^^^^^^^^")
+                    displayArt.Sunk()
+                    raw_input( "Press Enter to continue..." )
+
             else: # The move was a MISS
                 self.board.updateMiss(xMove,yMove)
-                print("ooooooooooooooooooooo MISS ooooooooooooooooooooooooooooo")
+                #print("ooooooooooooooooooooo MISS ooooooooooooooooooooooooooooo")
+                displayArt.Miss()
 
             print()
             self.board.draw()
@@ -81,7 +88,7 @@ class Game:
             # print("Player move translates to (" + str(xMove) + ", " + str(yMove) + ")")
             #for boat in self.boatList: # print all the boat coordinates so I can see them
             #    print( boat.getCoordinates() )
-
+            print("Your last move was:", newMove)
             print("Number of boats left: ", self.numberOfBoatsLeft)
 
         return True # game completed successfully

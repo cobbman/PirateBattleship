@@ -3,6 +3,7 @@ import player
 import gameboard
 import boat
 import game 
+import displayArt
 
 
 """
@@ -61,12 +62,8 @@ def createBoatList(numBoats): # Creates the list of boats
 ### MAKE INTRODUCTIONS AND GATHER INFO WE NEED SO WE CAN START THE GAME
 
 clearScreen()
-
-print ( "Pirate Battleship ASCII ART goes here. This game was made by Big William!" )
-print ( "This game is still in production, so things aren't all finished yet." )
-print ( "Hopefully that won't be too annoying. You can always change some code if you like :)")
-print ( "If you have any comments drop me a line: hello@bigwilliam.com")
-print ( "Have Fun!!!")
+displayArt.PirateBattleship()
+print ( "This game was made by Big William! If you have any comments, drop me a line: hello@BigWilliam.com" )
 raw_input( "Press Enter to continue..." )
 
 clearScreen()
