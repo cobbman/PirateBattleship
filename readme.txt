@@ -21,7 +21,7 @@ game.py      - creates a game object. Takes in the players, board, and boatList 
 boat.py      - creates a boat object
 gameboard.py - creates a board object that can be different sizes (default is 10x10)
 player.py    - creates a player. Right now the game is only 1 player
-
+displayArt.py- displays the ASCII art
 
 |======================> OTHER RANDOM NOTES TO MYSELF ARE BELOW: <======================|
 
