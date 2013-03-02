@@ -4,14 +4,18 @@ import string # lets us do some formatting for the draw method
 class GameBoard:
     """ 
     Create a square grid as a list of lists. Default is 10x10 with '.' as initial values. 
-    NOTE: Because the board stores values in the order of row then column (y then x), the x and y coordinates are switched to match. Outside this class everything is considered to be x,y (col, row)
+    NOTE: Because the board stores values in the order of row then column (y then x), 
+    the x and y coordinates are switched to match. 
+    Outside this class everything is considered to be x,y (col, row). This also assumes that
+    we receive all coordinates as x,y. In other words, inside here the world is y,x but outside
+    it's x,y. See notes at the bottom of readme.txt for more on this.
     """
     
     def __init__(self, boardSize=10, setMark='.'):
         self.size = boardSize
         self.defaultMark = setMark 
 
-        ### This creates the board ###
+        ### This creates the board matrix ###
         self.grid = [ [ self.defaultMark for row in range(self.size) ] for col in range(self.size) ] 
 
     def draw(self): # Draws the board for the user to see. The most commonly used method of this class.
