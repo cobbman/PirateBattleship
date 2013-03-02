@@ -8,7 +8,7 @@ PirateBattleship is a 1-player game you play in your terminal (I hope to make it
 |======================> HOW TO PLAY: <======================|
 1. Open your terminal and go to the directory you want the game to be in.
 2. Clone the repo to your computer: git clone https://github.com/bigwilliam/PirateBattleship.git
-3. Start the game with this command: python start.py
+3. Start the game with this command: python start.py (make your terminal fullscreen for best results with ascii-art!)
 
 I hope you enjoy the game! Perhaps one day if I have the time I will create an online version of the game.
 
@@ -43,6 +43,8 @@ Fixed:
 =========================================================================================================
 
 FUNCTIONALITY:
+
+Keeping track of hit/miss values. The boat keeps track of whether it has been hit. But the board keeps track of how many moves have been made and where. This way we can ask the boat if it is sunk/hit/miss and report accordingly. The board knows how many spaces have been played on, but the board's main responsibility is to display to the user what moves they have done and the status.
 
 Just some notes about how the game functions:
 
