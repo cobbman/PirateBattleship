@@ -7,7 +7,7 @@ PirateBattleship is a 1-player game you play in your terminal (I hope to make it
 
 |======================> HOW TO PLAY: <======================|
 1. Open your terminal and go to the directory you want the game to be in.
-2. Clone the repo to your computer: git clone https://github.com/bigwilliam/PirateBattleship.git
+2. Clone the repo to your computer: git clone https://github.com/cobbman/PirateBattleship.git
 3. Start the game with this command: python start.py (make your terminal fullscreen for best results with ascii-art!)
 
 I hope you enjoy the game! Perhaps one day if I have the time I will create an online version of the game.
