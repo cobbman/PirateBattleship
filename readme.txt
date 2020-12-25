@@ -12,7 +12,7 @@ PirateBattleship is a 1-player game you play in your terminal (I hope to make it
 
 I hope you enjoy the game! Perhaps one day if I have the time I will create an online version of the game.
 
-Comments or questions can be emailed to me: hello@bigwilliam.com
+Comments or questions? Tweet me @william_cobb
 
 
 |======================> FILES: <======================|
